@@ -2,15 +2,15 @@
 
 namespace App\Model\Repository;
 
-use App\Model\Entity\Car;
+use App\Model\Entity\logement;
 use Symplefony\Model\Repository;
 
-class CarRepository extends Repository
+class logementRepository extends Repository
 {
-    protected function getTableName(): string { return 'cars'; }
+    protected function getTableName(): string { return 'logements'; }
 
     /* Crud: Create */
-    public function create( Car $car ): ?Car
+    public function create( logement $logement ): ?logement
     {
         $query = sprintf(
             'INSERT INTO `%s` 
@@ -27,13 +27,13 @@ class CarRepository extends Repository
         }
 
         $success = $sth->execute([
-            'label' => $car->getLabel(),
-            'seats' => $car->getSeats(),
-            'energy' => $car->getEnergy(),
-            'plate_number' => $car->getPlateNumber(),
-            'price_day' => $car->getPriceDay(),
-            'price_distance' => $car->getPriceDistance(),
-            'image' => $car->getImage()
+            'label' => $logement->getLabel(),
+            'seats' => $logement->getSeats(),
+            'energy' => $logement->getEnergy(),
+            'plate_number' => $logement->getPlateNumber(),
+            'price_day' => $logement->getPriceDay(),
+            'price_distance' => $logement->getPriceDistance(),
+            'image' => $logement->getImage()
         ]);
 
         // Si echec de l'insertion
@@ -42,25 +42,25 @@ class CarRepository extends Repository
         }
 
         // Ajout de l'id de l'item créé en base de données
-        $car->setId( $this->pdo->lastInsertId() );
+        $logement->setId( $this->pdo->lastInsertId() );
 
-        return $car;
+        return $logement;
     }
 
     /* cRud: Read tous les items */
     public function getAll(): array
     {
-        return $this->readAll( Car::class );
+        return $this->readAll( logement::class );
     }
 
     /* cRud: Read un item par son id */
-    public function getById( int $id ): ?Car
+    public function getById( int $id ): ?logement
     {
-        return $this->readById( Car::class, $id );
+        return $this->readById( logement::class, $id );
     }
 
     /* crUd: Update */
-    public function update( Car $car ): ?Car
+    public function update( logement $logement ): ?logement
     {
         $query = sprintf(
             'UPDATE `%s` 
@@ -84,14 +84,14 @@ class CarRepository extends Repository
         }
 
         $success = $sth->execute([
-            'label' => $car->getLabel(),
-            'seats' => $car->getSeats(),
-            'energy' => $car->getEnergy(),
-            'plate_number' => $car->getPlateNumber(),
-            'price_day' => $car->getPriceDay(),
-            'price_distance' => $car->getPriceDistance(),
-            'image' => $car->getImage(),
-            'id' => $car->getId()
+            'label' => $logement->getLabel(),
+            'seats' => $logement->getSeats(),
+            'energy' => $logement->getEnergy(),
+            'plate_number' => $logement->getPlateNumber(),
+            'price_day' => $logement->getPriceDay(),
+            'price_distance' => $logement->getPriceDistance(),
+            'image' => $logement->getImage(),
+            'id' => $logement->getId()
         ]);
 
         // Si echec de la mise à jour
@@ -99,14 +99,14 @@ class CarRepository extends Repository
             return null;
         }
 
-        return $car;
+        return $logement;
     }
 
     /* cruD: Delete */
     public function deleteOne(int $id): bool
     {
         // On supprime d'abord toutes les liaisons avec les catégories
-        $success = RepoManager::getRM()->getCategoryRepo()->detachAllForCar( $id );
+        $success = RepoManager::getRM()->getCategoryRepo()->detachAllForlogement( $id );
 
         // Si cela a fonctionné on invoke la méthode deleteOne parente
         if( $success) {

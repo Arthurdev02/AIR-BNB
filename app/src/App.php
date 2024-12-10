@@ -11,7 +11,7 @@ use Exception;
 use Throwable;
 
 use Symplefony\View;
-use App\Controller\CarController;
+use App\Controller\logementController;
 
 use MiladRahimi\PhpRouter\Router;
 use App\Controller\PageController;
@@ -102,17 +102,17 @@ final class App
             // Suppression
             $router->get('/categories/{id}/delete', [CategoryController::class, 'delete']);
 
-            // -- Car --
+            // -- logement --
             // Ajout
-            $router->get('/cars/add', [CarController::class, 'add']);
-            $router->post('/cars', [CarController::class, 'create']);
+            $router->get('/logements/add', [logementController::class, 'add']);
+            $router->post('/logements', [logementController::class, 'create']);
             // Liste
-            $router->get('/cars', [CarController::class, 'index']);
+            $router->get('/logements', [logementController::class, 'index']);
             // Détail/modification
-            $router->get('/cars/{id}', [CarController::class, 'show']);
-            $router->post('/cars/{id}', [CarController::class, 'update']);
+            $router->get('/logements/{id}', [logementController::class, 'show']);
+            $router->post('/logements/{id}', [logementController::class, 'update']);
             // Suppression
-            $router->get('/cars/{id}/delete', [CarController::class, 'delete']);
+            $router->get('/logements/{id}/delete', [logementController::class, 'delete']);
         });
     }
 

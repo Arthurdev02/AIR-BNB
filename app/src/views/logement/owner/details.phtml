@@ -1,16 +1,16 @@
 <div>
-    <a href="/owner/cars">🔙 Retour</a>
+    <a href="/owner/logements">🔙 Retour</a>
 </div>
-<h1><?php printf( 'Voiture : %s - %s', $car->getId(), $car->getLabel() ) ?></h1>
+<h1><?php printf( 'Voiture : %s - %s', $logement->getId(), $logement->getLabel() ) ?></h1>
 <h2>Modifier</h2>
-<form action="<?php printf( '/owner/cars/%s', $car->getId() ) ?>" method="post" novalidate>
+<form action="<?php printf( '/owner/logements/%s', $logement->getId() ) ?>" method="post" novalidate>
     <div>
         <label for="input-label">Label :</label>
-        <input type="text" name="label" id="input-label" value="<?php echo $car->getLabel() ?>">
+        <input type="text" name="label" id="input-label" value="<?php echo $logement->getLabel() ?>">
     </div>
     <div>
         <label for="input-seats">Places assises :</label>
-        <input type="number" name="seats" id="input-seats" value="<?php echo $car->getSeats() ?>">
+        <input type="number" name="seats" id="input-seats" value="<?php echo $logement->getSeats() ?>">
     </div>
     <div>
         <label for="select-energy">Motorisation :</label>
@@ -22,20 +22,20 @@
     </div>
     <div>
         <label for="input-plate_number">Numéro d'immatriculation :</label>
-        <input type="text" name="plate_number" id="input-plate_number" value="<?php echo $car->getPlateNumber() ?>">
+        <input type="text" name="plate_number" id="input-plate_number" value="<?php echo $logement->getPlateNumber() ?>">
     </div>
     <div>
         <label for="input-price_day">Prix par jour :</label>
-        <input type="number" name="price_day" id="input-price_day" value="<?php echo $car->getPriceDay() ?>">
+        <input type="number" name="price_day" id="input-price_day" value="<?php echo $logement->getPriceDay() ?>">
     </div>
     <div>
         <label for="input-price_distance">Prix du kilomètre supplémentaire :</label>
-        <input type="number" name="price_distance" id="input-price_distance" value="<?php echo $car->getPriceDistance() ?>">
+        <input type="number" name="price_distance" id="input-price_distance" value="<?php echo $logement->getPriceDistance() ?>">
     </div>
     <div>
         <label for="input-image">Image :</label>
         <!-- TODO: Gérer l'upload d'image avec un input de type "file" -->
-        <input type="text" name="image" id="input-image" value="<?php echo $car->getImage() ?>">
+        <input type="text" name="image" id="input-image" value="<?php echo $logement->getImage() ?>">
     </div>
     <fieldset>
         <legend>Catégories</legend>
@@ -45,7 +45,7 @@
                     printf(
                         '<input type="checkbox" name="categories[]" id="chk-category-%1$s" value="%1$s"%2$s> ',
                         $category->getId(),
-                        in_array( $category->getId(), $car_categories_ids ) ? ' checked': ''
+                        in_array( $category->getId(), $logement_categories_ids ) ? ' checked': ''
                     );
                     printf( '<label for="chk-category-%s">%s</label>', $category->getId(), $category->getLabel() );
                 echo '</div>';
@@ -57,5 +57,5 @@
     </div>
 </form>
 <div>
-    <a href="<?php printf( '/owner/cars/%s/delete', $car->getId() ) ?>">❌ Supprimer</a>
+    <a href="<?php printf( '/owner/logements/%s/delete', $logement->getId() ) ?>">❌ Supprimer</a>
 </div>

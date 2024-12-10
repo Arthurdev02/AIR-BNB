@@ -1,2 +1,48 @@
-<h1>Créer mon compte</h1>
-<p>TODO :)</p>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Créer un compte</h1>
+        <form action="process_signup.php" method="POST">
+            <!-- Prénom -->
+            <label for="firstname">Prénom</label>
+            <input type="text" id="firstname" name="firstname" maxlength="50" required placeholder="Votre prénom">
+
+            <!-- Nom -->
+            <label for="lastname">Nom</label>
+            <input type="text" id="lastname" name="lastname" maxlength="50" required placeholder="Votre nom">
+
+            <!-- Email -->
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" maxlength="255" required placeholder="Votre adresse email">
+
+            <!-- Mot de passe -->
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" maxlength="255" required placeholder="Votre mot de passe">
+
+            <!-- Numéro de téléphone -->
+            <label for="phone">Numéro de téléphone</label>
+            <input type="text" id="phone" name="phone" maxlength="15" required placeholder="Votre numéro de téléphone">
+
+            <!-- Rôle -->
+            <label for="role">Rôle</label>
+            <select id="role" name="role" required>
+                <option value="1">Owner</option>
+                <option value="2">User</option>
+            </select>
+
+            <!-- Bouton d'inscription -->
+            <button type="submit" class="btn btn-primary">Créer mon compte</button>
+        </form>
+    </div>
+</body>
+
+</html>
