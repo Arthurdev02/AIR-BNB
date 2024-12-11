@@ -68,6 +68,8 @@ final class App
         $this->router->get('/create-account', [PageController::class, 'register']);
         $this->router->get('/connect', [PageController::class, 'connect']);
         $this->router->get('/mentions-legales', [PageController::class, 'legalNotice']);
+        $this ->router->get('/owner/dashboard', [PageController::class, 'dashboard']);
+
 
 
         // TODO: Groupe Visiteurs (non-connectés)

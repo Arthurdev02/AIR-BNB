@@ -4,26 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se connecter</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Connexion</title>
 </head>
 
 <body>
-    <div class="form-container">
-        <h1>Se connecter</h1>
-        <form action="home.phmtl" method="POST">
-            <!-- Email -->
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" maxlength="255" required placeholder="Votre adresse email">
+    <form action="../home.phtml" method="POST">
+        <h1>Connexion</h1>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
 
-            <!-- Mot de passe -->
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" maxlength="255" required placeholder="Votre mot de passe">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required>
 
-            <!-- Bouton d'inscription -->
-            <button type="submit" class="btn btn-primary">Créer mon compte</button>
-        </form>
-    </div>
+        <button type="submit">Se connecter</button>
+    </form>
 </body>
 
 </html>

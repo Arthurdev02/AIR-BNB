@@ -1,12 +1,26 @@
-<h1>Tableau de bord</h1>
-<nav>
-    <a href="/owner/logements">Gérer les logement</a> -
-    <a href="/owner/maisons">Gérer les maison</a>
-</nav>
-<p>
-    Espace Owner.
-</p>
-<h2> Crée votre annonce </h2>
+<?php
+// Assurez-vous que l'utilisateur est un propriétaire
+//session_start();
+//if ($_SESSION['role'] != '1') { // Vérifie si l'utilisateur est un "Owner"
+//   header("Location: /login.php"); // Redirige vers la page de connexion si ce n'est pas un propriétaire
+//   exit();
+//}
+?>
+
+<body>
 
 
-<h2> Vos annonces </h2>
+    <div class="main-content">
+        <div class="owner-dashboard">
+            <h2>Bienvenue, Propriétaire!</h2>
+            <p>Gérez vos annonces, modifiez les informations et consultez vos statistiques.</p>
+
+            <div class="actions">
+                <a href="create_announce.php" class="btn">Créer une nouvelle annonce</a>
+                <a href="manage_announces.php" class="btn">Gérer mes annonces</a>
+                <a href="view_statistics.php" class="btn">Consulter mes anciennes annonces</a>
+            </div>
+        </div>
+    </div>
+
+</body>

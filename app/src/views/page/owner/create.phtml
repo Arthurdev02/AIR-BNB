@@ -1,36 +1,3 @@
-<?php
-// On suppose que la session et la connexion à la base de données sont déjà établies.
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer les données du formulaire
-    $announce_id = $_SESSION['user_id']; // L'ID de l'utilisateur, ici on suppose qu'il est dans la session
-    $price = $_POST['price'];
-    $type_logement = $_POST['type_logement'];
-    $taille = $_POST['taille'];
-    $description = $_POST['description'];
-    $bedrooms = $_POST['bedrooms'];
-    $adress_id = $_POST['adress_id'];
-
-    // Ici, vous pouvez également gérer l'image téléchargée, par exemple
-    $image = $_FILES['image']['name']; // Pour l'exemple, mais il faudra traiter le fichier correctement.
-
-    // Préparer et exécuter la requête d'insertion dans la base de données
-    $query = "INSERT INTO announce (announce_id, price, type_logement, taille, description, bedroooms, adress_id)
-              VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    if ($stmt = $mysqli->prepare($query)) {
-        $stmt->bind_param("iisdssi", $announce_id, $price, $type_logement, $taille, $description, $bedrooms, $adress_id);
-        $stmt->execute();
-
-        // Redirection ou message de succès
-        header("Location: annonce.php"); // Redirige vers une page de succès
-        exit();
-    } else {
-        echo "Erreur lors de la création du logement.";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
