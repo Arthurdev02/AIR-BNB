@@ -257,3 +257,221 @@ footer p {
         font-size: 16px;
     }
 }
+
+/* Conteneur principal */
+.owner-main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f4f7fb;
+    height: 100vh;
+    /* Remplir toute la hauteur de la fenêtre */
+}
+
+/* Dashboard du propriétaire */
+.owner-dashboard {
+    background-color: #ffffff;
+    /* Fond blanc pour le tableau de bord */
+    border-radius: 10px;
+    /* Coins arrondis */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    /* Ombre pour donner du relief */
+    padding: 40px;
+    max-width: 900px;
+    /* Limiter la largeur */
+    width: 100%;
+    /* Utiliser toute la largeur disponible */
+    text-align: center;
+}
+
+/* Titre du dashboard */
+.h2owner {
+    font-size: 36px;
+    color: #ff5a5f;
+    /* Couleur rouge */
+    margin-bottom: 20px;
+}
+
+/* Paragraphe d'introduction */
+.phowner {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Conteneur des actions */
+.actionsowner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Boutons des actions */
+.actionsowner .btn {
+    background-color: #ff5a5f;
+    /* Fond rouge */
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    /* Coins arrondis */
+    width: 100%;
+    max-width: 320px;
+    /* Limiter la largeur du bouton */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Effet hover des boutons */
+.actionsowner .btn:hover {
+    background-color: #ff4044;
+    /* Rouge plus foncé au survol */
+    transform: translateY(-3px);
+    /* Légère élévation */
+}
+
+/* Effet active sur les boutons */
+.actionsowner .btn:active {
+    transform: translateY(1px);
+    /* Lors du clic, le bouton descend légèrement */
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .owner-dashboard {
+        padding: 30px;
+        width: 90%;
+        /* Réduire la largeur sur petits écrans */
+    }
+
+    .h2owner {
+        font-size: 28px;
+    }
+
+    .phowner {
+        font-size: 16px;
+    }
+
+    .actionsowner .btn {
+        font-size: 16px;
+    }
+}
+
+/* Reset des styles par défaut */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corps du formulaire */
+body.connect {
+    background-color: #f4f7fb;
+    /* Fond léger pour l'écran */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Hauteur totale de l'écran */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Conteneur principal du formulaire */
+form {
+    background-color: #ffffff;
+    /* Fond blanc pour le formulaire */
+    border-radius: 8px;
+    /* Coins arrondis */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Ombre douce autour du formulaire */
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    /* Limite la largeur du formulaire */
+    text-align: center;
+}
+
+/* Titre du formulaire */
+.h1connect {
+    font-size: 32px;
+    color: #ff5a5f;
+    /* Couleur rouge */
+    margin-bottom: 20px;
+}
+
+/* Style des labels */
+label {
+    font-size: 14px;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Style des champs de saisie */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    /* Fond clair pour les champs */
+    transition: border-color 0.3s ease;
+}
+
+/* Focus sur les champs de saisie */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #ff5a5f;
+    /* Couleur rouge au focus */
+    outline: none;
+    /* Supprime le contour par défaut */
+}
+
+/* Bouton de soumission */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5a5f;
+    /* Fond rouge */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Effet hover et active du bouton */
+button:hover {
+    background-color: #ff4044;
+    /* Rouge plus foncé au survol */
+    transform: translateY(-3px);
+    /* Légère élévation */
+}
+
+button:active {
+    transform: translateY(1px);
+    /* Enfoncement du bouton lors du clic */
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    form {
+        padding: 30px;
+        width: 90%;
+        /* Réduit la largeur du formulaire sur petits écrans */
+    }
+
+    .h1connect {
+        font-size: 28px;
+        /* Taille réduite du titre pour les petits écrans */
+    }
+}
