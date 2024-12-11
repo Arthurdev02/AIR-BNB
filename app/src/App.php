@@ -68,7 +68,7 @@ final class App
         $this->router->get('/create-account', [PageController::class, 'register']);
         $this->router->get('/connect', [PageController::class, 'connect']);
         $this->router->get('/mentions-legales', [PageController::class, 'legalNotice']);
-        $this ->router->get('/owner/dashboard', [PageController::class, 'dashboard']);
+        $this->router->get('/owner/dashboard', [PageController::class, 'dashboard']);
 
 
 
@@ -79,46 +79,31 @@ final class App
             Attributes::PREFIX => '/owner',
             Attributes::MIDDLEWARE => [ownerMiddleware::class]
         ];
+        //--
 
-        $this->router->group($ownerAttributes, function (Router $router) {
-            $router->get('', [ownerController::class, 'dashboard']);
+        // -- User --
+        // Ajout
+        $this->router->get('/users/add', [UserController::class, 'add']);
+        $this->router->post('/users', [UserController::class, 'create']);
+        // Liste
+        $this->router->get('/users', [UserController::class, 'index']);
+        // Détail
+        $this->router->get('/users/{id}', [UserController::class, 'show']);
+        $this->router->post('/users/{id}', [UserController::class, 'update']);
+        // Suppression
+        $this->router->get('/users/{id}/delete', [UserController::class, 'delete']);
 
-            // -- User --
-            // Ajout
-            $router->get('/users/add', [UserController::class, 'add']);
-            $router->post('/users', [UserController::class, 'create']);
-            // Liste
-            $router->get('/users', [UserController::class, 'index']);
-            // Détail
-            $router->get('/users/{id}', [UserController::class, 'show']);
-            $router->post('/users/{id}', [UserController::class, 'update']);
-            // Suppression
-            $router->get('/users/{id}/delete', [UserController::class, 'delete']);
-
-            // -- Logement --
-            // Ajout
-            $router->get('/logements/add', [LogementController::class, 'add']);
-            $router->post('/logements', [LogementController::class, 'create']);
-            // Liste
-            $router->get('/logements', [LogementController::class, 'index']);
-            // Détail/modification
-            $router->get('/logements/{id}', [LogementController::class, 'show']);
-            $router->post('/logements/{id}', [LogementController::class, 'update']);
-            // Suppression
-            $router->get('/logements/{id}/delete', [LogementController::class, 'delete']);
-
-            // -- maison --
-            // Ajout
-            $router->get('/maisons/add', [maisonController::class, 'add']);
-            $router->post('/maisons', [maisonController::class, 'create']);
-            // Liste
-            $router->get('/maisons', [maisonController::class, 'index']);
-            // Détail/modification
-            $router->get('/maisons/{id}', [maisonController::class, 'show']);
-            $router->post('/maisons/{id}', [maisonController::class, 'update']);
-            // Suppression
-            $router->get('/maisons/{id}/delete', [maisonController::class, 'delete']);
-        });
+        // -- Logement --
+        // Ajout
+        $this->router->get('/logements/add', [LogementController::class, 'add']);
+        $this->router->post('/logements', [LogementController::class, 'create']);
+        // Liste
+        $this->router->get('/logements', [LogementController::class, 'index']);
+        // Détail/modification
+        $this->router->get('/logements/{id}', [LogementController::class, 'show']);
+        $this->router->post('/logements/{id}', [LogementController::class, 'update']);
+        // Suppression
+        $this->router->get('/logements/{id}/delete', [LogementController::class, 'delete']);
     }
 
     // Démarrage du routeur

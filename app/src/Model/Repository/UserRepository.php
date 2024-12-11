@@ -8,22 +8,25 @@ use App\Model\Entity\User;
 
 class UserRepository extends Repository
 {
-    protected function getTableName(): string { return 'users'; }
+    protected function getTableName(): string
+    {
+        return 'user';
+    }
 
     /* Crud: Create */
-    public function create( User $user ): ?User
+    public function create(User $user): ?User
     {
         $query = sprintf(
             'INSERT INTO `%s` 
-                (`password`,`email`,`firstname`,`lastname`,`phone_number`,`address_id`) 
-                VALUES (:password,:email,:firstname,:lastname,:phone_number,:address_id)',
+                (`password`,`email`,`firstname`,`lastname`,`phone_number`,`role_id`) 
+                VALUES (:password,:email,:firstname,:lastname,:phone_number,:role_id)',
             $this->getTableName()
         );
 
-        $sth = $this->pdo->prepare( $query );
+        $sth = $this->pdo->prepare($query);
 
         // Si la préparation échoue
-        if( ! $sth ) {
+        if (! $sth) {
             return null;
         }
 
@@ -33,16 +36,16 @@ class UserRepository extends Repository
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
             'phone_number' => $user->getPhoneNumber(),
-            'address_id' => $user->getAddressId()
+            'role_id' => $user->getRoleId()
         ]);
 
         // Si echec de l'insertion
-        if( ! $success ) {
+        if (! $success) {
             return null;
         }
 
         // Ajout de l'id de l'item créé en base de données
-        $user->setId( $this->pdo->lastInsertId() );
+        $user->setId($this->pdo->lastInsertId());
 
         return $user;
     }
@@ -50,17 +53,17 @@ class UserRepository extends Repository
     /* cRud: Read tous les items */
     public function getAll(): array
     {
-        return $this->readAll( User::class );
+        return $this->readAll(User::class);
     }
 
     /* cRud: Read un item par son id */
-    public function getById( int $id ): ?User
+    public function getById(int $id): ?User
     {
-        return $this->readById( User::class, $id );
+        return $this->readById(User::class, $id);
     }
 
     /* crUd: Update */
-    public function update( User $user ): ?User
+    public function update(User $user): ?User
     {
         $query = sprintf(
             'UPDATE `%s` 
@@ -70,14 +73,15 @@ class UserRepository extends Repository
                     `firstname`=:firstname,
                     `lastname`=:lastname,
                     `phone_number`=:phone_number
+                    
                 WHERE id=:id',
             $this->getTableName()
         );
 
-        $sth = $this->pdo->prepare( $query );
+        $sth = $this->pdo->prepare($query);
 
         // Si la préparation échoue
-        if( ! $sth ) {
+        if (! $sth) {
             return null;
         }
 
@@ -87,43 +91,15 @@ class UserRepository extends Repository
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
             'phone_number' => $user->getPhoneNumber(),
-            'id' => $user->getId()
+            'id' => $user->getId(),
+            `role_id` => $user->getRoleId()
         ]);
 
         // Si echec de la mise à jour
-        if( ! $success ) {
+        if (! $success) {
             return null;
         }
 
         return $user;
-    }
-
-    /* cruD: Delete */
-    public function deleteOne(int $id): bool
-    {
-        // On récupère l'user pour pouvoir connaîre son address_id 
-        $user = $this->getById( $id );
-
-        if( is_null( $user ) ) {
-            return false;
-        }
-
-        $addressRepo = RepoManager::getRM()->getAddressRepo();
-        // On récupère l'addresse
-        $address = $addressRepo->getById( $user->getAddressId() );
-
-        if( is_null( $address ) ) {
-            return false;
-        }
-
-        // On supprime l'user
-        $success = parent::deleteOne( $id );
-
-        // Si cela a fonctionné, on supprimé l'addresse liée
-        if( $success ) {
-            $success = $addressRepo->deleteOne( $address->getId());
-        }
-
-        return $success;
     }
 }
