@@ -7,15 +7,16 @@ use Symplefony\Model\Repository;
 
 class logementRepository extends Repository
 {
-    protected function getTableName(): string { return 'logements'; }
+    protected function getTableName(): string { return 'logemetns'; }
+    private function getMappingMaison(): string { return 'Maison_logement'; }
 
     /* Crud: Create */
     public function create( logement $logement ): ?logement
     {
         $query = sprintf(
             'INSERT INTO `%s` 
-                (`label`,`seats`,`energy`,`plate_number`,`price_day`,`price_distance`,`image`) 
-                VALUES (:label,:seats,:energy,:plate_number,:price_day,:price_distance,:image)',
+                (`label`) 
+                VALUES (:label)',
             $this->getTableName()
         );
 
@@ -27,13 +28,7 @@ class logementRepository extends Repository
         }
 
         $success = $sth->execute([
-            'label' => $logement->getLabel(),
-            'seats' => $logement->getSeats(),
-            'energy' => $logement->getEnergy(),
-            'plate_number' => $logement->getPlateNumber(),
-            'price_day' => $logement->getPriceDay(),
-            'price_distance' => $logement->getPriceDistance(),
-            'image' => $logement->getImage()
+            'label' => $logement->getLabel()
         ]);
 
         // Si echec de l'insertion
@@ -59,19 +54,48 @@ class logementRepository extends Repository
         return $this->readById( logement::class, $id );
     }
 
+    /* cRud: Read avec liaison de tous les items reliés à une voiture donnée */
+    public function getAllForMaison( int $id ): array
+    {
+        $query = sprintf(
+            'SELECT c.* FROM `%1$s` as c 
+                JOIN `%2$s` as cc ON cc.logement_id = c.id
+                WHERE cc.Maison_id=:id',
+            $this->getTableName(),
+            $this->getMappingMaison()
+        );
+
+        $sth = $this->pdo->prepare( $query );
+
+        // Si la préparation échoue
+        if( ! $sth ) {
+            return [];
+        }
+
+        $success = $sth->execute([
+            'id' => $id
+        ]);
+
+        // Si echec de l'insertion
+        if( ! $success ) {
+            return [];
+        }
+
+        $logemetns = [];
+
+        while( $logement_data = $sth->fetch() ) {
+            $logemetns[] = new logement( $logement_data );
+        }
+
+        return $logemetns;
+    }
+
     /* crUd: Update */
     public function update( logement $logement ): ?logement
     {
         $query = sprintf(
             'UPDATE `%s` 
-                SET
-                    `label`=:label,
-                    `seats`=:seats,
-                    `energy`=:energy,
-                    `plate_number`=:plate_number,
-                    `price_day`=:price_day,
-                    `price_distance`=:price_distance,
-                    `image`=:image
+                SET `label`=:label
                 WHERE id=:id',
             $this->getTableName()
         );
@@ -85,12 +109,6 @@ class logementRepository extends Repository
 
         $success = $sth->execute([
             'label' => $logement->getLabel(),
-            'seats' => $logement->getSeats(),
-            'energy' => $logement->getEnergy(),
-            'plate_number' => $logement->getPlateNumber(),
-            'price_day' => $logement->getPriceDay(),
-            'price_distance' => $logement->getPriceDistance(),
-            'image' => $logement->getImage(),
             'id' => $logement->getId()
         ]);
 
@@ -102,17 +120,49 @@ class logementRepository extends Repository
         return $logement;
     }
 
-    /* cruD: Delete */
-    public function deleteOne(int $id): bool
+    /* Delete toutes les liaisons de catégories d'une voiture donnée */
+    public function detachAllForMaison( int $id ): bool
     {
-        // On supprime d'abord toutes les liaisons avec les catégories
-        $success = RepoManager::getRM()->getCategoryRepo()->detachAllForlogement( $id );
+        $query = sprintf(
+            'DELETE FROM `%s` WHERE Maison_id=:id',
+            $this->getMappingMaison()
+        );
 
-        // Si cela a fonctionné on invoke la méthode deleteOne parente
-        if( $success) {
-            $success = parent::deleteOne( $id );
+        $sth = $this->pdo->prepare( $query );
+
+        // Si la préparation échoue
+        if( ! $sth ) {
+            return false;
         }
 
+        $success = $sth->execute([ 'id' => $id ]);
+
         return $success;
+    }
+
+    /* Insére les liaisons de catégories demandée pour d'une voiture donnée */
+    public function attachForMaison( array $ids_logemetns, int $Maison_id ): bool
+    {
+        $query_values = [];
+        foreach( $ids_logemetns as $logement_id ) {
+            $query_values[] = sprintf( '( %s,%s )', $logement_id, $Maison_id );
+        }
+
+        $query = sprintf(
+            'INSERT INTO `%s` 
+                (`logement_id`, `Maison_id`) 
+                VALUES %s',
+            $this->getMappingMaison(),
+            implode( ',', $query_values )
+        );
+
+        $sth = $this->pdo->prepare( $query );
+
+        // Si la préparation échoue
+        if( ! $sth ) {
+            return false;
+        }
+
+        return $sth->execute();
     }
 }

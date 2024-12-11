@@ -24,6 +24,29 @@ class PageController extends Controller
         $view->render($data);
     }
 
+    public function register(): void
+    {
+        $view = new View('page:user:create-account');
+
+        $data = [
+            'title' => 'Créer son compte - Air-bnb.com'
+        ];
+
+        $view->render($data);
+    }
+
+    public function connect(): void
+    {
+        $view = new View('page:user:connect');
+
+        $data = [
+            'title' => 'Créer son compte - Air-bnb.com'
+        ];
+
+        $view->render($data);
+    }
+
+
     // Page mentions légales
     public function legalNotice(): void
     {

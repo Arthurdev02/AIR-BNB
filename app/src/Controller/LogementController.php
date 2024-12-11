@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-use App\Model\Entity\logement;
-use App\Model\Repository\RepoManager;
 use Laminas\Diactoros\ServerRequest;
+
 use Symplefony\Controller;
 use Symplefony\View;
+
+use App\Model\Entity\logement;
+use App\Model\Repository\logementRepository;
+use App\Model\Repository\RepoManager;
 
 class logementController extends Controller
 {
@@ -20,30 +23,25 @@ class logementController extends Controller
         $view = new View( 'logement:owner:create' );
 
         $data = [
-            'title' => 'Ajouter une voiture',
-            'categories' => RepoManager::getRM()->getCategoryRepo()->getAll()
+            'title' => 'Ajouter un logement'
         ];
 
         $view->render( $data );
     }
 
-    // owner: Traitement du formulaire de création d'une catégorie
+    // owner: Traitement du formulaire de création d'un logement
     public function create( ServerRequest $request ): void
     {
         $logement_data = $request->getParsedBody();
 
         $logement = new logement( $logement_data );
-        
+
         $logement_created = RepoManager::getRM()->getlogementRepo()->create( $logement );
-        
+
         if( is_null( $logement_created ) ) {
             // TODO: gérer une erreur
             $this->redirect( '/owner/logements/add' );
         }
-
-        // Si pas de données post logement aucun coché, on crée un tableau vide
-        $categories =  $logement_data[ 'categories' ] ?? [];
-        $logement_created->addCategories( $categories );
 
         $this->redirect( '/owner/logements' );
     }
@@ -54,7 +52,7 @@ class logementController extends Controller
         $view = new View( 'logement:owner:list' );
 
         $data = [
-            'title' => 'Liste des voitures',
+            'title' => 'Liste des logements',
             'logements' => RepoManager::getRM()->getlogementRepo()->getAll()
         ];
 
@@ -74,12 +72,9 @@ class logementController extends Controller
             return;
         }
 
-        $logement_categories_ids = array_map( function( $category ){ return $category->getId(); }, $logement->getCategories() );
         $data = [
-            'title' => 'Voiture: '. $logement->getLabel(),
-            'logement' => $logement,
-            'categories' => RepoManager::getRM()->getCategoryRepo()->getAll(),
-            'logement_categories_ids' => $logement_categories_ids
+            'title' => 'Categorie: '. $logement->getLabel(),
+            'logement' => $logement
         ];
 
         $view->render( $data );
@@ -99,10 +94,6 @@ class logementController extends Controller
             // TODO: gérer une erreur
             $this->redirect( '/owner/logements/'. $id );
         }
-        
-        // Si pas de données post logement aucun coché, on crée un tableau vide
-        $categories =  $logement_data[ 'categories' ] ?? [];
-        $logement_updated->addCategories( $categories );
 
         $this->redirect( '/owner/logements' );
     }

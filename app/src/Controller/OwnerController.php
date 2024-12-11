@@ -7,15 +7,15 @@ use Symplefony\View;
 
 class OwnerController extends Controller
 {
-    // Dashboard
-    public function dashboard(): void
+    // AcceuilOwner
+    public function AcceuilOwner(): void
     {
-        $view = new View( 'page:owner:home' );
+        $view = new View('page:owner:home');
 
         $data = [
-            'title' => 'Tableau de bord - owner Autodingo.com'
+            'title' => 'CAZKEN.com - owner '
         ];
 
-        $view->render( $data);
+        $view->render($data);
     }
 }

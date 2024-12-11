@@ -1,16 +1,16 @@
 <div>
     <a href="/owner">🏠 Retour</a>
 </div>
-<h1>Voitures</h1>
+<h1>Logements</h1>
 <p>
-    <a href="/owner/logements/add">Ajouter une voiture</a>
+    <a href="/owner/logements/add">Ajouter une Logement</a>
 </p>
 <?php if( !empty($logements) ): ?>
 <ul>
-    <?php foreach( $logements as $logement ): ?>
-        <li><?php printf( '<a href="/owner/logements/%1$s">%1$s - %2$s</a>', $logement->getId(), $logement->getLabel() ) ?></li>
+    <?php foreach( $logements as $category ): ?>
+        <li><?php printf( '<a href="/owner/logements/%1$s">%1$s - %2$s</a>', $category->getId(), $category->getLabel() ) ?></li>
     <?php endforeach ?>
 </ul>
 <?php else: ?>
-    <div>Aucune voiture définie.</div>
+    <div>Aucune Logement définie.</div>
 <?php endif ?>

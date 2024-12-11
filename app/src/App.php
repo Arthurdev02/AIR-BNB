@@ -11,14 +11,14 @@ use Exception;
 use Throwable;
 
 use Symplefony\View;
-use App\Controller\logementController;
+use App\Controller\maisonController;
 
 use MiladRahimi\PhpRouter\Router;
 use App\Controller\PageController;
 use App\Controller\UserController;
 use App\Controller\ownerController;
 use App\Middleware\ownerMiddleware;
-use App\Controller\CategoryController;
+use App\Controller\LogementController;
 use MiladRahimi\PhpRouter\Routing\Attributes;
 use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
 
@@ -65,7 +65,10 @@ final class App
 
         // -- Pages communes --
         $this->router->get('/', [PageController::class, 'index']);
+        $this->router->get('/create-account', [PageController::class, 'register']);
+        $this->router->get('/connect', [PageController::class, 'connect']);
         $this->router->get('/mentions-legales', [PageController::class, 'legalNotice']);
+
 
         // TODO: Groupe Visiteurs (non-connectés)
 
@@ -90,29 +93,29 @@ final class App
             // Suppression
             $router->get('/users/{id}/delete', [UserController::class, 'delete']);
 
-            // -- Category --
+            // -- Logement --
             // Ajout
-            $router->get('/categories/add', [CategoryController::class, 'add']);
-            $router->post('/categories', [CategoryController::class, 'create']);
+            $router->get('/logements/add', [LogementController::class, 'add']);
+            $router->post('/logements', [LogementController::class, 'create']);
             // Liste
-            $router->get('/categories', [CategoryController::class, 'index']);
+            $router->get('/logements', [LogementController::class, 'index']);
             // Détail/modification
-            $router->get('/categories/{id}', [CategoryController::class, 'show']);
-            $router->post('/categories/{id}', [CategoryController::class, 'update']);
+            $router->get('/logements/{id}', [LogementController::class, 'show']);
+            $router->post('/logements/{id}', [LogementController::class, 'update']);
             // Suppression
-            $router->get('/categories/{id}/delete', [CategoryController::class, 'delete']);
+            $router->get('/logements/{id}/delete', [LogementController::class, 'delete']);
 
-            // -- logement --
+            // -- maison --
             // Ajout
-            $router->get('/logements/add', [logementController::class, 'add']);
-            $router->post('/logements', [logementController::class, 'create']);
+            $router->get('/maisons/add', [maisonController::class, 'add']);
+            $router->post('/maisons', [maisonController::class, 'create']);
             // Liste
-            $router->get('/logements', [logementController::class, 'index']);
+            $router->get('/maisons', [maisonController::class, 'index']);
             // Détail/modification
-            $router->get('/logements/{id}', [logementController::class, 'show']);
-            $router->post('/logements/{id}', [logementController::class, 'update']);
+            $router->get('/maisons/{id}', [maisonController::class, 'show']);
+            $router->post('/maisons/{id}', [maisonController::class, 'update']);
             // Suppression
-            $router->get('/logements/{id}/delete', [logementController::class, 'delete']);
+            $router->get('/maisons/{id}/delete', [maisonController::class, 'delete']);
         });
     }
 

@@ -12,8 +12,8 @@ class RepoManager
     private UserRepository $user_repository;
     public function getUserRepo(): UserRepository { return $this->user_repository; }
 
-    private CategoryRepository $category_repository;
-    public function getCategoryRepo(): CategoryRepository { return $this->category_repository; }
+    private logementRepository $logement_repository;
+    public function getlogementRepo(): logementRepository { return $this->logement_repository; }
 
     private logementRepository $logement_repository;
     public function getlogementRepo(): logementRepository { return $this->logement_repository; }
@@ -26,7 +26,7 @@ class RepoManager
         $pdo = Database::getPDO();
 
         $this->user_repository = new UserRepository( $pdo );
-        $this->category_repository = new CategoryRepository( $pdo );
+        $this->logement_repository = new logementRepository( $pdo );
         $this->logement_repository = new logementRepository( $pdo );
         $this->address_repository = new AddressRepository( $pdo );
     }
