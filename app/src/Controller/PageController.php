@@ -52,4 +52,26 @@ class PageController extends Controller
     {
         echo 'Les mentions légales !';
     }
+
+
+    public function home()
+    {
+        $view = new View('page:user:connect');
+
+        $data = [
+            'title' => 'Home'
+        ];
+
+        $view->render($data);
+    }
+    public function createannounce(): void
+    {
+        $view = new View('page:owner:createannounce');
+
+        $data = [
+            'title' => 'CAZKEN.com - owner '
+        ];
+
+        $view->render($data);
+    }
 }

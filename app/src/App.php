@@ -11,13 +11,14 @@ use Exception;
 use Throwable;
 
 use Symplefony\View;
-use App\Controller\maisonController;
+use Symplefony\Security;
 
 use MiladRahimi\PhpRouter\Router;
 use App\Controller\PageController;
 use App\Controller\UserController;
 use App\Controller\ownerController;
 use App\Middleware\ownerMiddleware;
+use App\Controller\maisonController;
 use App\Controller\LogementController;
 use MiladRahimi\PhpRouter\Routing\Attributes;
 use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
@@ -46,6 +47,7 @@ final class App
     // Démarrage de l'application
     public function start(): void
     {
+        session_start();
         $this->registerRoutes();
         $this->startRouter();
     }
@@ -69,6 +71,12 @@ final class App
         $this->router->get('/connect', [PageController::class, 'connect']);
         $this->router->get('/mentions-legales', [PageController::class, 'legalNotice']);
         $this->router->get('/owner/dashboard', [PageController::class, 'dashboard']);
+        $this->router->post('/connect', [UserController::class, 'userLogin']);
+        $this->router->post('/users', [UserController::class, 'create']);
+        $this->router->get('/user/home', [UserController::class, 'homeuser']);
+        $this->router->get('/owner/home', [UserController::class, 'homeowner']);
+        $this->router->get('/owner/createannounce', [PageController::class, 'createannounce']);
+
 
 
 
@@ -81,10 +89,12 @@ final class App
         ];
         //--
 
+
+
+
         // -- User --
         // Ajout
         $this->router->get('/users/add', [UserController::class, 'add']);
-        $this->router->post('/users', [UserController::class, 'create']);
         // Liste
         $this->router->get('/users', [UserController::class, 'index']);
         // Détail
@@ -118,8 +128,8 @@ final class App
         }
         // Erreur 500 pour tout autre problème temporaire ou non
         catch (Throwable $e) {
-            View::renderError(500);
-            var_dump($e);
+            View::renderError(500, $e);
+            //var_dump($e);
         }
     }
 
@@ -127,5 +137,16 @@ final class App
     public function __wakeup()
     {
         throw new Exception("Non c'est interdit !");
+    }
+    /**
+     * Hache une chaîne de caractères en servant du "sel" et du "poivre" définis dans .env
+     *
+     * @param  string $str Chaîne à hacher
+     * 
+     * @return string Résultat
+     */
+    public static function strHash(string $str): string
+    {
+        return Security::strButcher($str, $_ENV['security_salt'], $_ENV['security_pepper']);
     }
 }

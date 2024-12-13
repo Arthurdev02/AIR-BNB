@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use Laminas\Diactoros\ServerRequest;
+use App\App;
 
-use Symplefony\Controller;
+use App\Session;
+
 use Symplefony\View;
-
 use App\Model\Entity\role;
-use App\Model\Repository\RepoManager;
 use App\Model\Entity\User;
+use Symplefony\Controller;
+use Laminas\Diactoros\ServerRequest;
+use App\Model\Repository\RepoManager;
 
 class UserController extends Controller
 {
@@ -27,7 +29,26 @@ class UserController extends Controller
 
         $view->render($data);
     }
+    public function homeuser()
+    {
+        $view = new View('page:user:home');
 
+        $data = [
+            'title' => 'Acceuil utilisateur'
+        ];
+
+        $view->render($data);
+    }
+    public function homeowner()
+    {
+        $view = new View('page:owner:home');
+
+        $data = [
+            'title' => 'Acceuil owner'
+        ];
+
+        $view->render($data);
+    }
     // Visiteur: Traitement du formulaire de création de compte
     public function processSubscribe(): void
     {
@@ -61,12 +82,24 @@ class UserController extends Controller
 
         if (is_null($user_created)) {
             // TODO: gérer une erreur
-            $this->redirect('/owner/users/add');
+            $this->redirect('/registration');
+            $redirect_url = match ($user->getRoleId()) {
+                User::ROLE_USER => 'user/home',
+                User::ROLE_OWNER => 'owner/home',
+            };
+
+
+
+            $this->redirect($redirect_url);
         }
-
-
-        $this->redirect('/users');
     }
+    public function login(ServerRequest $request)
+    {
+        $user_data = $request->getParsedBody();
+        //var_dump($user_data);
+    }
+
+
 
     // owner: Liste
     public function index(): void
@@ -88,11 +121,6 @@ class UserController extends Controller
 
         $user = RepoManager::getRM()->getUserRepo()->getById($id);
 
-        // Si l'utilisateur demandé n'existe pas
-        if (is_null($user)) {
-            View::renderError(404);
-            return;
-        }
 
         $data = [
             'title' => 'Utilisateur: ' . $user->getEmail(),
@@ -100,5 +128,41 @@ class UserController extends Controller
         ];
 
         $view->render($data);
+    }
+    public function userLogin(ServerRequest $request): void
+    {
+        $form_data = $request->getParsedBody();
+
+
+        // Si les données du formulaire sont vides ou inexistantes
+        if (empty($form_data['email']) || empty($form_data['password'])) {
+
+            $this->redirect('/connect');
+        }
+
+        // On nettoie les espaces en trop
+        $email = trim($form_data['email']);
+        $password = trim($form_data['password']);
+
+
+        $password = App::strHash($form_data['password']);
+        // On vérifie les identifiants de connexion
+        $user = RepoManager::getRM()->getUserRepo()->checkAuth($email, $password);
+
+        // Si échec
+        if (is_null($user)) {
+            $this->redirect('/connect');
+        }
+
+        // On enregistre l'utilisateur correspondant dans la session
+        Session::set(Session::USER, $user);
+
+
+        if ($user->getRoleId() == User::ROLE_USER) {
+            $this->redirect('/user/home');
+        }
+        if ($user->getRoleId() == User::ROLE_OWNER) {
+            $this->redirect('/owner/home');
+        }
     }
 }

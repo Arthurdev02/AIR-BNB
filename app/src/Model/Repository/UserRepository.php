@@ -2,15 +2,47 @@
 
 namespace App\Model\Repository;
 
-use Symplefony\Model\Repository;
+use App\App;
 
 use App\Model\Entity\User;
+use Symplefony\Model\Repository;
 
 class UserRepository extends Repository
 {
     protected function getTableName(): string
     {
         return 'user';
+    }
+
+    public function checkuser(string $email, string $password)
+    {
+        $query = sprintf(
+            'SELECT * FROM `%s` WHERE email=:email',
+            $this->getTableName()
+        );
+        $sth = $this->pdo->prepare($query);
+
+        // Si la préparation échoue
+        if (! $sth) {
+            return null;
+        }
+
+        $success = $sth->execute(['email' => $email]);
+
+        // Si echec
+        if (! $success) {
+            return null;
+        }
+
+        // Récupération du premier résultat
+        $object_data = $sth->fetch();
+
+        // Si aucun user ne correspond
+        if (! $object_data) {
+            return null;
+        }
+
+        return new User($object_data);
     }
 
     /* Crud: Create */
@@ -30,15 +62,15 @@ class UserRepository extends Repository
             return null;
         }
 
+        $password = App::strHash($user->getPassword());
         $success = $sth->execute([
-            'password' => $user->getPassword(),
+            'password' => $password,
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
             'phone_number' => $user->getPhoneNumber(),
             'role_id' => $user->getRoleId()
         ]);
-
         // Si echec de l'insertion
         if (! $success) {
             return null;
@@ -84,9 +116,9 @@ class UserRepository extends Repository
         if (! $sth) {
             return null;
         }
-
+        $password = App::strHash($user->getPassword());
         $success = $sth->execute([
-            'password' => $user->getPassword(),
+            'password' => $password,
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
@@ -101,5 +133,28 @@ class UserRepository extends Repository
         }
 
         return $user;
+    }
+    public function checkAuth(string $email, string $password): ?User
+    {
+        $query = sprintf(
+            'SELECT * FROM `%s` WHERE `email`=:email AND `password`=:password',
+            $this->getTableName()
+        );
+
+        $sth = $this->pdo->prepare($query);
+
+        if (! $sth) {
+            return null;
+        }
+
+        $sth->execute(['email' => $email, 'password' => $password]);
+
+        $user_data = $sth->fetch();
+
+        if (! $user_data) {
+            return null;
+        }
+
+        return new User($user_data);
     }
 }

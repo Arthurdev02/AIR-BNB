@@ -10,12 +10,14 @@ class View
     private string $name;
     private bool $is_complete;
 
-    public static function renderError( int $code ): void
+    public static function renderError( int $code , $error = null): void
     {
         http_response_code( $code );
 
         $is_complete = $code !== 404;
-        $data = [];
+        $data = [
+            'e' => $error,
+        ];
 
         if( !$is_complete ) {
             $data['title'] = 'Page inexistante - Autodingo.com';

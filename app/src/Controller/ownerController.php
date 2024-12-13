@@ -29,4 +29,6 @@ class ownerController extends Controller
 
         $view->render($data);
     }
+
+
 }

@@ -63,14 +63,25 @@ class User extends Entity
     }
 
     protected string $role_id;
-    public function
-    getRoleId(): string
+    public function getRoleId(): string
     {
         return $this->role_id;
     }
-    public function setRoleIde(int $value): self
+    public function setRoleId(int $value): self
     {
         $this->role_id = $value;
         return $this;
     }
+    /**
+     * Rôle administrateur
+     */
+    public const ROLE_OWNER = 1;
+    /**
+     * Rôle commercial
+     */
+    public const ROLE_USER = 2;
+    /**
+     * Rôle client
+     */
+    public const ROLE_CUSTOMER = 3;
 }

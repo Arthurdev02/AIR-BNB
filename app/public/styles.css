@@ -475,3 +475,73 @@ button:active {
         /* Taille réduite du titre pour les petits écrans */
     }
 }
+
+/* Styling for error 404 */
+.error404 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #d9534f;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for error 500 */
+.erreur500 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #f0ad4e;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Additional Text */
+main p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Style des champs de saisie et des sélecteurs */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fafafa;
+}
+
+/* Style du textarea (ajout d'un peu plus de taille) */
+textarea {
+    resize: vertical;
+}
+
+/* Style du bouton de soumission */
+.logementbtn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Effet de survol du bouton */
+.logementbtn:hover {
+    background-color: #0056b3;
+}
+
+/* Titre du formulaire */
+.logementh1 {
+    text-align: center;
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 20px;
+}

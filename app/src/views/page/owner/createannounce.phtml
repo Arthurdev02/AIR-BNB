@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un nouveau logement</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <h1 class="logementh1">Créer un nouveau logement</h1>
+        <!-- Nom du logement -->
+        <label for="name">Nom du logement</label>
+        <input type="text" id="name" name="name" maxlength="255" required placeholder="Nom du logement">
+
+        <!-- Prix -->
+        <label for="price">Prix</label>
+        <input type="number" id="price" name="price" required placeholder="Prix en €" step="0.01">
+
+        <!-- Type de logement -->
+        <label for="type_logement">Type de logement</label>
+        <select id="type_logement" name="type_logement" required>
+            <option value="1">Logement entier</option>
+            <option value="2">Chambre privée</option>
+            <option value="3">Chambre partagée</option>
+        </select>
+
+        <!-- Taille -->
+        <label for="taille">Taille en m²</label>
+        <input type="number" id="taille" name="taille" required placeholder="Taille en m²" step="0.1">
+
+        <!-- Description -->
+        <label for="description">Description</label>
+        <textarea class="texteralogement" id="description" name="description" rows="4" placeholder="Description du logement"></textarea>
+
+        <!-- Nombre de chambres -->
+        <label for="bedrooms">Nombre de chambres</label>
+        <input type="number" id="bedrooms" name="bedrooms" required placeholder="Nombre de chambres" min="1">
+
+        <!-- Adresse (ID de l'adresse pré-existante, à récupérer via une recherche ou un autre formulaire) -->
+        <label for="adress_id">Adresse</label>
+        <input type="number" id="adress_id" name="adress_id" required placeholder="ID de l'adresse">
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="logementbtn">Créer le logement</button>
+        </form>
+    </div>
+</body>
+
+</html>
