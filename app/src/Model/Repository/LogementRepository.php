@@ -1,168 +1,133 @@
-<?php
-
 namespace App\Model\Repository;
-
-use App\Model\Entity\logement;
+<?php
+use PDO;
+use Symplefony\Database;
 use Symplefony\Model\Repository;
+use App\Model\Entity\Announcement;
 
-class logementRepository extends Repository
+class AnnouncementRepository extends Repository
 {
-    protected function getTableName(): string { return 'logemetns'; }
-    private function getMappingMaison(): string { return 'Maison_logement'; }
+protected function getTableName(): string
+{
+return 'announcement';
+}
 
-    /* Crud: Create */
-    public function create( logement $logement ): ?logement
-    {
-        $query = sprintf(
-            'INSERT INTO `%s` 
-                (`label`) 
-                VALUES (:label)',
-            $this->getTableName()
-        );
+//creation du crud
 
-        $sth = $this->pdo->prepare( $query );
+public function createAnnouncement(Announcement $announcement): ?Announcement
+{
+$query = sprintf(
+"INSERT INTO %s (id_owner, id_adress, size, price, description, sleeping, accommodation_id)
+VALUES (:id_owner, :id_adress, :size, :price, :description, :sleeping,:accommodation_id)",
+$this->getTableName()
+);
+$sth = $this->pdo->prepare($query);
+//si la preparation echoue
+if (!$sth) {
+return null;
+}
+$success = $sth->execute([
+'id_owner' => $announcement->getIdOwner(),
+'id_adress' => $announcement->getIdAdress(),
+'size' => $announcement->getSize(),
+'price' => $announcement->getPrice(),
+'description' => $announcement->getDescription(),
+'sleeping' => $announcement->getSleeping(),
+'accommodation_id' => $announcement->getAccommodationId()
+]);
+//si echec de l'insertion
 
-        // Si la préparation échoue
-        if( ! $sth ) {
-            return null;
-        }
+if (!$success) {
+return null;
+}
 
-        $success = $sth->execute([
-            'label' => $logement->getLabel()
-        ]);
+//ajout de l'id de l'item cree en base de donnees
+$announcement->setId($this->pdo->lastInsertId());
+return $announcement;
+}
 
-        // Si echec de l'insertion
-        if( ! $success ) {
-            return null;
-        }
+//cRud: read tous les items
+public function getAll(): array
+{
+$announcements = $this->readAll(Announcement::class);
+return $announcements;
+}
 
-        // Ajout de l'id de l'item créé en base de données
-        $logement->setId( $this->pdo->lastInsertId() );
+/* cRud: Read tous les items */
+public function getAllForOwner(int $id): array
+{
+$query = sprintf(
+'SELECT * FROM `%s` WHERE id_owner=:id_owner',
+$this->getTableName()
+);
 
-        return $logement;
-    }
+$sth = $this->pdo->prepare($query);
 
-    /* cRud: Read tous les items */
-    public function getAll(): array
-    {
-        return $this->readAll( logement::class );
-    }
+// Si la préparation échoue
+if (! $sth) {
+return [];
+}
 
-    /* cRud: Read un item par son id */
-    public function getById( int $id ): ?logement
-    {
-        return $this->readById( logement::class, $id );
-    }
+$success = $sth->execute(['id_owner' => $id]);
 
-    /* cRud: Read avec liaison de tous les items reliés à une voiture donnée */
-    public function getAllForMaison( int $id ): array
-    {
-        $query = sprintf(
-            'SELECT c.* FROM `%1$s` as c 
-                JOIN `%2$s` as cc ON cc.logement_id = c.id
-                WHERE cc.Maison_id=:id',
-            $this->getTableName(),
-            $this->getMappingMaison()
-        );
+// Si echec
+if (! $success) {
+return [];
+}
 
-        $sth = $this->pdo->prepare( $query );
+// Récupération des résultats
+$announcements = [];
 
-        // Si la préparation échoue
-        if( ! $sth ) {
-            return [];
-        }
+while ($announcement_data = $sth->fetch()) {
+$announcement = new Announcement($announcement_data);
+$announcements[] = $announcement;
+}
 
-        $success = $sth->execute([
-            'id' => $id
-        ]);
+return $announcements;
+}
 
-        // Si echec de l'insertion
-        if( ! $success ) {
-            return [];
-        }
+//cRud: read un item par son id
+public function getById(int $id): ?Announcement
+{
+return $this->readById(Announcement::class, $id);
+}
 
-        $logemetns = [];
-
-        while( $logement_data = $sth->fetch() ) {
-            $logemetns[] = new logement( $logement_data );
-        }
-
-        return $logemetns;
-    }
-
-    /* crUd: Update */
-    public function update( logement $logement ): ?logement
-    {
-        $query = sprintf(
-            'UPDATE `%s` 
-                SET `label`=:label
-                WHERE id=:id',
-            $this->getTableName()
-        );
-
-        $sth = $this->pdo->prepare( $query );
-
-        // Si la préparation échoue
-        if( ! $sth ) {
-            return null;
-        }
-
-        $success = $sth->execute([
-            'label' => $logement->getLabel(),
-            'id' => $logement->getId()
-        ]);
-
-        // Si echec de la mise à jour
-        if( ! $success ) {
-            return null;
-        }
-
-        return $logement;
-    }
-
-    /* Delete toutes les liaisons de catégories d'une voiture donnée */
-    public function detachAllForMaison( int $id ): bool
-    {
-        $query = sprintf(
-            'DELETE FROM `%s` WHERE Maison_id=:id',
-            $this->getMappingMaison()
-        );
-
-        $sth = $this->pdo->prepare( $query );
-
-        // Si la préparation échoue
-        if( ! $sth ) {
-            return false;
-        }
-
-        $success = $sth->execute([ 'id' => $id ]);
-
-        return $success;
-    }
-
-    /* Insére les liaisons de catégories demandée pour d'une voiture donnée */
-    public function attachForMaison( array $ids_logemetns, int $Maison_id ): bool
-    {
-        $query_values = [];
-        foreach( $ids_logemetns as $logement_id ) {
-            $query_values[] = sprintf( '( %s,%s )', $logement_id, $Maison_id );
-        }
-
-        $query = sprintf(
-            'INSERT INTO `%s` 
-                (`logement_id`, `Maison_id`) 
-                VALUES %s',
-            $this->getMappingMaison(),
-            implode( ',', $query_values )
-        );
-
-        $sth = $this->pdo->prepare( $query );
-
-        // Si la préparation échoue
-        if( ! $sth ) {
-            return false;
-        }
-
-        return $sth->execute();
-    }
+//crUd: update
+public function update(Announcement $announcement): ?Announcement
+{
+$query = sprintf(
+'UPDATE `%s`
+SET
+`id_owner`=:id_owner,
+`id_adress`=:id_adress,
+`size`=:size,
+`price`=:price,
+`description`=:description,
+`sleeping`=:sleeping,
+`accommodation_id`=:accommodation_id
+WHERE id=:id',
+$this->getTableName()
+);
+$sth = $this->pdo->prepare($query);
+// Si la préparation échoue
+if (! $sth) {
+return null;
+}
+$success = $sth->execute([
+'id_owner' => $announcement->getIdOwner(),
+'id_adress' => $announcement->getIdAdress(),
+'size' => $announcement->getSize(),
+'price' => $announcement->getPrice(),
+'description' => $announcement->getDescription(),
+'sleeping' => $announcement->getSleeping(),
+'accommodation_id' => $announcement->getAccommodationId(),
+'id' => $announcement->getId(),
+'title' => $announcement->getTitle()
+]);
+// Si echec de la mise à jour
+if (! $success) {
+return null;
+}
+return $announcement;
+}
 }

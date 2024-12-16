@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="card" style="width: 18rem; border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 10px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);">
+        <div class="card-body">
+            <!-- Nom du logement -->
+            <h5 class="card-title">Nom du logement : <?= htmlspecialchars($name) ?></h5>
+
+            <!-- Prix -->
+            <p class="card-text"><strong>Prix :</strong> <?= number_format($price, 2, ',', ' ') ?> €</p>
+
+            <!-- Type de logement -->
+            <p class="card-text"><strong>Type :</strong>
+                <?= ($type_logement == 1 ? "Logement entier" : ($type_logement == 2 ? "Chambre privée" : "Chambre partagée")) ?>
+            </p>
+
+            <!-- Taille -->
+            <p class="card-text"><strong>Taille :</strong> <?= htmlspecialchars($taille) ?> m²</p>
+
+            <!-- Description -->
+            <p class="card-text"><strong>Description :</strong><br> <?= nl2br(htmlspecialchars($description)) ?></p>
+
+            <!-- Nombre de chambres -->
+            <p class="card-text"><strong>Nombre de chambres :</strong> <?= htmlspecialchars($bedrooms) ?></p>
+        </div>
+    </div>
+
+</body>
+
+</html>

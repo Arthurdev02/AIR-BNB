@@ -69,14 +69,15 @@ final class App
         $this->router->get('/', [PageController::class, 'index']);
         $this->router->get('/create-account', [PageController::class, 'register']);
         $this->router->get('/connect', [PageController::class, 'connect']);
+        $this->router->post('/add-user', [UserController::class, 'login']);
         $this->router->get('/mentions-legales', [PageController::class, 'legalNotice']);
         $this->router->get('/owner/dashboard', [PageController::class, 'dashboard']);
-        $this->router->post('/connect', [UserController::class, 'userLogin']);
         $this->router->post('/users', [UserController::class, 'create']);
         $this->router->get('/user/home', [UserController::class, 'homeuser']);
         $this->router->get('/owner/home', [UserController::class, 'homeowner']);
         $this->router->get('/owner/createannounce', [PageController::class, 'createannounce']);
-
+        $this->router->get('/owner/oldannounce', [PageController::class, 'oldannounce']);
+        $this->router->get('/owner/manageannounce', [PageController::class, 'manageannounce']);
 
 
 

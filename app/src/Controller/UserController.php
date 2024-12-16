@@ -93,11 +93,47 @@ class UserController extends Controller
             $this->redirect($redirect_url);
         }
     }
+
     public function login(ServerRequest $request)
     {
-        $user_data = $request->getParsedBody();
-        //var_dump($user_data);
+        $form_data = $request->getParsedBody();
+
+        // Si les données du formulaire sont vides ou inexistantes
+        if (empty($form_data['email']) || empty($form_data['password'])) {
+
+            $this->redirect('/connect?error= Veuillez remplir les champs obligatoires');
+        }
+
+        // On nettoie les espaces en trop
+        $email = trim($form_data['email']);
+        $password = trim($form_data['password']);
+
+        // Si les données sont vides après nettoyage
+        if (empty($email) || empty($password)) {
+
+            $this->redirect('/connect?error=');
+        }
+
+        // On vérifie les identifiants de connexion
+        $user = RepoManager::getRM()->getUserRepo()->checkAuth($email, $password);
+
+        // Si échec
+        if (is_null($user)) {
+            $this->redirect('/login?error=Email ou mot de passe incorrect !');
+        }
+
+        // On enregistre l'utilisateur correspondant dans la session
+        Session::set(Session::USER, $user);
+
+        // On redirige vers une page en fonction du rôle de l'utilisateur
+        $redirect_url = match ($user->getRoleId()) {
+            User::ROLE_CUSTOMER => '/user/home',
+            User::ROLE_OWNER => '/owner/home'
+        };
+
+        $this->redirect($redirect_url);
     }
+    
 
 
 
@@ -129,40 +165,5 @@ class UserController extends Controller
 
         $view->render($data);
     }
-    public function userLogin(ServerRequest $request): void
-    {
-        $form_data = $request->getParsedBody();
-
-
-        // Si les données du formulaire sont vides ou inexistantes
-        if (empty($form_data['email']) || empty($form_data['password'])) {
-
-            $this->redirect('/connect');
-        }
-
-        // On nettoie les espaces en trop
-        $email = trim($form_data['email']);
-        $password = trim($form_data['password']);
-
-
-        $password = App::strHash($form_data['password']);
-        // On vérifie les identifiants de connexion
-        $user = RepoManager::getRM()->getUserRepo()->checkAuth($email, $password);
-
-        // Si échec
-        if (is_null($user)) {
-            $this->redirect('/connect');
-        }
-
-        // On enregistre l'utilisateur correspondant dans la session
-        Session::set(Session::USER, $user);
-
-
-        if ($user->getRoleId() == User::ROLE_USER) {
-            $this->redirect('/user/home');
-        }
-        if ($user->getRoleId() == User::ROLE_OWNER) {
-            $this->redirect('/owner/home');
-        }
-    }
+    
 }

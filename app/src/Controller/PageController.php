@@ -74,4 +74,24 @@ class PageController extends Controller
 
         $view->render($data);
     }
+    public function oldannounce(): void
+    {
+        $view = new View('page:owner:oldannounce');
+
+        $data = [
+            'title' => 'CAZKEN.com - owner '
+        ];
+
+        $view->render($data);
+    }
+    public function manageannounce(): void
+    {
+        $view = new View('page:owner:manageannounce');
+
+        $data = [
+            'title' => 'CAZKEN.com - owner '
+        ];
+
+        $view->render($data);
+    }
 }

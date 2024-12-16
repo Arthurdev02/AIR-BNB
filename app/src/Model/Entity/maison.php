@@ -90,14 +90,14 @@ class maison extends Entity
     public function getlogements(): array
     {
         if (! isset($this->logements)) {
-            $this->logements = RepoManager::getRM()->getlogementRepo()->getAllFormaison($this->id);
+            $this->logements = RepoManager::getRM()->getLogementRepo()->getAllFormaison($this->id);
         }
 
         return $this->logements;
     }
     public function addlogements(array $ids_logements): self
     {
-        $cat_repo = RepoManager::getRM()->getlogementRepo();
+        $cat_repo = RepoManager::getRM()->getLogementRepo();
 
         // 1 - On détache toutes les catégories existante sur la voiture
         $cat_repo->detachAllFormaison($this->id);
