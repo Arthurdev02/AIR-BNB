@@ -20,6 +20,7 @@ use App\Controller\ownerController;
 use App\Middleware\ownerMiddleware;
 use App\Controller\maisonController;
 use App\Controller\LogementController;
+use App\Model\Entity\User;
 use MiladRahimi\PhpRouter\Routing\Attributes;
 use MiladRahimi\PhpRouter\Exceptions\RouteNotFoundException;
 
@@ -69,7 +70,7 @@ final class App
         $this->router->get('/', [PageController::class, 'index']);
         $this->router->get('/create-account', [PageController::class, 'register']);
         $this->router->get('/connect', [PageController::class, 'connect']);
-        $this->router->post('/add-user', [UserController::class, 'login']);
+        $this->router->post('/connect', [UserController::class, 'login']);
         $this->router->get('/mentions-legales', [PageController::class, 'legalNotice']);
         $this->router->get('/owner/dashboard', [PageController::class, 'dashboard']);
         $this->router->post('/users', [UserController::class, 'create']);

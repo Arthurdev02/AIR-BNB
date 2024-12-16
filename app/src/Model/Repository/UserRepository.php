@@ -62,9 +62,8 @@ class UserRepository extends Repository
             return null;
         }
 
-        $password = App::strHash($user->getPassword());
         $success = $sth->execute([
-            'password' => $password,
+            'password' => $user->getPassword(),
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),

@@ -62,8 +62,8 @@ class User extends Entity
         return $this;
     }
 
-    protected string $role_id;
-    public function getRoleId(): string
+    protected int $role_id;
+    public function getRoleId(): int
     {
         return $this->role_id;
     }
@@ -77,11 +77,7 @@ class User extends Entity
      */
     public const ROLE_OWNER = 1;
     /**
-     * Rôle commercial
-     */
-    public const ROLE_USER = 2;
-    /**
      * Rôle client
      */
-    public const ROLE_CUSTOMER = 3;
+    public const ROLE_CUSTOMER = 2;
 }

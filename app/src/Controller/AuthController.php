@@ -54,7 +54,6 @@ class AuthController extends Controller
         // On redirige vers une page en fonction du rôle de l'utilisateur
         $redirect_url = match ($user->getRoleId()) {
             User::ROLE_CUSTOMER => '/',
-            User::ROLE_SALESMAN => '/', // TODO: à définir
             User::ROLE_ADMIN => '/owner' // TODO: Sécurité: page qui redemande le mot de passe par exemple
         };
 

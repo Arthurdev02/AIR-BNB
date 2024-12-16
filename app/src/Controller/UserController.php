@@ -78,20 +78,23 @@ class UserController extends Controller
         //var_dump($user_data);
         //die;
         $user = new User($user_data);
+
+        $user->setPassword(App::strHash($user->getPassword()));
         $user_created = RepoManager::getRM()->getUserRepo()->create($user);
 
         if (is_null($user_created)) {
             // TODO: gérer une erreur
             $this->redirect('/registration');
-            $redirect_url = match ($user->getRoleId()) {
-                User::ROLE_USER => 'user/home',
-                User::ROLE_OWNER => 'owner/home',
-            };
-
-
-
-            $this->redirect($redirect_url);
         }
+
+        $redirect_url = match ($user->getRoleId()) {
+            User::ROLE_CUSTOMER => 'user/home',
+            User::ROLE_OWNER => 'owner/home',
+        };
+
+
+
+        $this->redirect($redirect_url);
     }
 
     public function login(ServerRequest $request)
@@ -114,6 +117,8 @@ class UserController extends Controller
             $this->redirect('/connect?error=');
         }
 
+        $password = App::strHash($password);
+
         // On vérifie les identifiants de connexion
         $user = RepoManager::getRM()->getUserRepo()->checkAuth($email, $password);
 
@@ -133,7 +138,7 @@ class UserController extends Controller
 
         $this->redirect($redirect_url);
     }
-    
+
 
 
 
@@ -165,5 +170,4 @@ class UserController extends Controller
 
         $view->render($data);
     }
-    
 }
