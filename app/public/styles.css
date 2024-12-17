@@ -545,3 +545,112 @@ textarea {
     color: #333;
     margin-bottom: 20px;
 }
+
+/* Style du conteneur principal */
+.add-housing-form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: left;
+}
+
+/* Titre du formulaire */
+.add-housing-form h1 {
+    font-size: 32px;
+    color: #ff5a5f;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Style des labels */
+.add-housing-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Champs de saisie */
+.add-housing-form input[type="text"],
+.add-housing-form input[type="number"],
+.add-housing-form textarea,
+.add-housing-form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+}
+
+.add-housing-form input:focus,
+.add-housing-form textarea:focus,
+.add-housing-form select:focus {
+    border-color: #ff5a5f;
+    outline: none;
+}
+
+/* Groupement des checkboxes */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.checkbox-group label {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Bouton de soumission */
+.add-housing-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-housing-form button:hover {
+    background-color: #ff4044;
+    transform: translateY(-3px);
+}
+
+.add-housing-form button:active {
+    transform: translateY(1px);
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    .add-housing-form {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .add-housing-form h1 {
+        font-size: 24px;
+    }
+
+    .add-housing-form button {
+        font-size: 14px;
+    }
+}

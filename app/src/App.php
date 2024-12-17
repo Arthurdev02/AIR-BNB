@@ -79,6 +79,8 @@ final class App
         $this->router->get('/owner/createannounce', [PageController::class, 'createannounce']);
         $this->router->get('/owner/oldannounce', [PageController::class, 'oldannounce']);
         $this->router->get('/owner/manageannounce', [PageController::class, 'manageannounce']);
+        $this->router->post('/owner/createannounce', [PageController::class, 'createannounce']);
+ 
 
 
 

@@ -35,7 +35,7 @@ class EquipementController extends Controller
 
         $equipement = new Equipement($equipement_data);
 
-        $equipement_created = RepoManager::getRM()->getEquipementRepo()->create($equipement);
+        $equipement_created = RepoManager::getRM()->getEquipmentRepomentRepo()->create($equipement);
 
         if (is_null($equipement_created)) {
             // TODO: gérer une erreur

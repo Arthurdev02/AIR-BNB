@@ -73,7 +73,10 @@ class PageController extends Controller
         ];
 
         $view->render($data);
+
+        
     }
+
     public function oldannounce(): void
     {
         $view = new View('page:owner:oldannounce');

@@ -19,8 +19,8 @@ class AnnouncementRepository extends Repository
     public function createAnnouncement(Announcement $announcement): ?Announcement
     {
         $query = sprintf(
-            "INSERT INTO %s (id_owner, id_adress, size, price, description, sleeping, accommodation_id)
-        VALUES (:id_owner, :id_adress, :size, :price, :description, :sleeping,:accommodation_id)",
+            "INSERT INTO %s (id_owner, adress_id, size, price, description, sleeping, accommodation_id)
+        VALUES (:id_owner, :adress_id, :size, :price, :description, :sleeping,:accommodation_id)",
             $this->getTableName()
         );
         $sth = $this->pdo->prepare($query);
@@ -30,7 +30,7 @@ class AnnouncementRepository extends Repository
         }
         $success = $sth->execute([
             'id_owner' => $announcement->getIdOwner(),
-            'id_adress' => $announcement->getIdAdress(),
+            'adress_id' => $announcement->getIdAdress(),
             'size' => $announcement->getSize(),
             'price' => $announcement->getPrice(),
             'description' => $announcement->getDescription(),
@@ -101,7 +101,7 @@ class AnnouncementRepository extends Repository
             'UPDATE `%s`
                 SET
                     `id_owner`=:id_owner,
-                    `id_adress`=:id_adress,
+                    `adress_id`=:adress_id,
                     `size`=:size,
                     `price`=:price,
                     `description`=:description,
@@ -117,7 +117,7 @@ class AnnouncementRepository extends Repository
         }
         $success = $sth->execute([
             'id_owner' => $announcement->getIdOwner(),
-            'id_adress' => $announcement->getIdAdress(),
+            'adress_id' => $announcement->getIdAdress(),
             'size' => $announcement->getSize(),
             'price' => $announcement->getPrice(),
             'description' => $announcement->getDescription(),
