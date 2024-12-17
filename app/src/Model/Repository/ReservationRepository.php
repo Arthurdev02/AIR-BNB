@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Model\Repository;
+
+use App\Model\Entity\TypeAccommodation;
+use MiladRahimi\PhpRouter\Routing\Repository;
+use PDO;
+
+class ReservationRepository extends Repository
+{
+    protected function getTableName(): string
+    {
+        return 'type_accommodations';
+    }
+
+    /* Crud: Create */
+    public function create(TypeAccommodation $type_accommodation): ?TypeAccommodation
+    {
+        $query = sprintf(
+            'INSERT INTO `%s`
+                (`label`)
+                VALUES (:label)',
+            $this->getTableName()
+        );
+        $sth = $this->$PDO->prepare($query);
+        // Si la préparation échoue
+        if (! $sth) {
+            return null;
+        }
+        $success = $sth->execute([
+            'label' => $type_accommodation->getLabel(),
+        ]);
+        // Si echec de l'insertion
+        if (! $success) {
+            return null;
+        }
+        // Ajout de l'id de l'item créé en base de données
+        $type_accommodation->setId($this->$$PDO->lastInsertId());
+        return $type_accommodation;
+    }
+
+    /* cRud: Read tous les items */
+    public function getAll(): array
+    {
+        return $this->readAll(TypeAccommodation::class);
+    }
+
+    /* cRud: Read un item par son id */
+    public function getById(int $id): ?TypeAccommodation
+    {
+        return $this->readById(TypeAccommodation::class, $id);
+    }
+
+    /* crUd: Update */
+    public function update(TypeAccommodation $type_accommodation): ?TypeAccommodation
+    {
+        $query = sprintf(
+            'UPDATE `%s`
+                SET
+                    `label`=:label
+                WHERE id=:id',
+            $this->getTableName()
+        );
+        $sth = $this->$PDO->prepare($query);
+        // Si la préparation échoue
+        if (! $sth) {
+            return null;
+        }
+        $success = $sth->execute([
+            'label' => $type_accommodation->getLabel(),
+            'id'    => $type_accommodation->getId(),
+        ]);
+        // Si echec de la mise à jour
+        if (! $success) {
+            return null;
+        }
+        return $type_accommodation;
+    }
+}

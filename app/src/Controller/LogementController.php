@@ -1,124 +1,92 @@
 <?php
 
+
 namespace App\Controller;
 
-use Laminas\Diactoros\ServerRequest;
-
-use Symplefony\Controller;
+use App\Model\Entity\Adress;
+use App\Model\Entity\Announcement;
+use App\Session;
 use Symplefony\View;
-
-use App\Model\Entity\Logements;
+use Symplefony\Controller;
+use Laminas\Diactoros\ServerRequest;
 use App\Model\Repository\RepoManager;
+use App\Model\Repository\AnnouncementRepository;
 
-class LogementsController extends Controller
+class AnnouncementController extends Controller
 {
     /**
-     * Pages Administrateur
+     * Méthode pour afficher les détails d'une annonce spécifique
      */
-
-    // Admin: Affichage du formulaire de création d'un utilisateur
-    public function add(): void
+    public function details(int $id): void
     {
-        $view = new View( 'logement:admin:create', auth_controller: AuthController::class );
+
+        $view = new View('page:announcement:details');
+        // Récupérer l'instance du Repository
+        $announcement = RepoManager::getRM()->getAnnouncementRepo()->getById($id);
 
         $data = [
-            'title' => 'Ajouter une voiture',
-            'equipements' => RepoManager::getRM()->getEquipementRepo()->getAll()
+            'announcement' => $announcement
+
         ];
 
-        $view->render( $data );
+        $view->render($data);
     }
 
-    // Admin: Traitement du formulaire de création d'une catégorie
-    public function create( ServerRequest $request ): void
+    public function CreateAnnonce(): void
     {
-        $logement_data = $request->getParsedBody();
-
-        $logement = new Logement( $logement_data );
-        
-        $logement_created = RepoManager::getRM()->getLogementRepo()->create( $logement );
-        
-        if( is_null( $logement_created ) ) {
-            // TODO: gérer une erreur
-            $this->redirect( '/admin/logements/add' );
-        }
-
-        // Si pas de données post logement aucun coché, on crée un tableau vide
-        $equipements =  $logement_data[ 'equipements' ] ?? [];
-        $logement_created->addequipements( $equipements );
-
-        $this->redirect( '/admin/logements' );
-    }
-
-    // Admin: Liste
-    public function index(): void
-    {
-        $view = new View( 'logement:admin:list', auth_controller: AuthController::class );
-
+        $view = new View('page:create-annonce');
         $data = [
-            'title' => 'Liste des voitures',
-            'logements' => RepoManager::getRM()->getLogementRepo()->getAll()
-        ];
+            'title' => 'Créer une annonce - MoinCherBnb.com'
 
-        $view->render( $data );
+        ];
+        $view->render($data);
     }
 
-    // Admin: Affichage détail/modification
-    public function show( int $id ): void
+
+
+    public function createAnnouncement(ServerRequest $request): void
     {
-        $view = new View( 'logement:admin:details', auth_controller: AuthController::class );
+        $announce_data = $request->getParsedBody();
+        $adress =  new Adress(array('city' => $announce_data['city'], 'country' => $announce_data['country'], 'street' => $announce_data['street']));
 
-        $logement = RepoManager::getRM()->getLogementRepo()->getById( $id );
+        $adress_created = RepoManager::getRM()->getAdressRepo()->create($adress);
 
-        // Si l'utilisateur demandé n'existe pas
-        if( is_null( $logement ) ) {
-            View::renderError( 404, AuthController::class );
-            return;
+        $announce = new Announcement(array(
+            'id_owner' => Session::get(Session::USER)->getId(),
+            'title' => $announce_data['title'],
+            'price' => $announce_data['price'],
+            'size' => $announce_data['size'],
+            'description' => $announce_data['description'],
+            'sleeping' => $announce_data['sleeping'],
+            'accommodation_id' => $announce_data['accommodation_id'],
+            'id_adress' => $adress_created->getId()
+        ));
+
+
+
+        $announce_created = RepoManager::getRM()->getAnnouncementRepo()->createAnnouncement($announce);
+
+
+        if (is_null($announce_created)) {
+            // TODO: gérer une erreur
+            $this->redirect('/create-annonce');
         }
+        $this->redirect('/home/owner');
+    }
 
-        $logement_equipements_ids = array_map( function( $equipement ){ return $equipement->getId(); }, $logement->getEquipements() );
+    public function ViewAnnounce(): void
+    {
+
+        // Récupérer l'ID du propriétaire connecté
+        $id_owner = Session::get(Session::USER)->getId();
+
+        // Récupérer les annonces via la méthode `getAllForOwner`
+        $announcements = RepoManager::getRM()->getAnnouncementRepo()->getAllForOwner($id_owner);
+        $view = new View('page:announce');
         $data = [
-            'title' => 'Voiture: '. $logement->getLabel(),
-            'logement' => $logement,
-            'equipements' => RepoManager::getRM()->getEquipementyRepo()->getAll(),
-            'logement_equipements_ids' => $logement_equipements_ids
+            'title' => 'Gestion des annonces',
+            'announcements' => $announcements
         ];
-
-        $view->render( $data );
-    }
-
-    // Admin: Traitement du formulaire de modification
-    public function update( ServerRequest $request, int $id ): void
-    {
-        $logement_data = $request->getParsedBody();
-
-        $logement = new Logement( $logement_data );
-        $logement->setId( $id );
-
-        $logement_updated = RepoManager::getRM()->getLogementRepo()->update( $logement );
-
-        if( is_null( $logement_updated ) ) {
-            // TODO: gérer une erreur
-            $this->redirect( '/admin/logements/'. $id );
-        }
-        
-        // Si pas de données post logement aucun coché, on crée un tableau vide
-        $equipements =  $logement_data[ 'equipements' ] ?? [];
-        $logement_updated->addEquipements( $equipements );
-
-        $this->redirect( '/admin/logements' );
-    }
-
-    // Admin: Suppression
-    public function delete( int $id ): void
-    {
-        $delete_success = RepoManager::getRM()->getLogementRepo()->deleteOne( $id );
-
-        if( ! $delete_success ) {
-            // TODO: gérer une erreur
-            $this->redirect( '/admin/logements/'. $id );
-        }
-
-        $this->redirect( '/admin/logements' );
+        $view->render($data);
     }
 }
