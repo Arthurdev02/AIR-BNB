@@ -79,5 +79,5 @@ class User extends Entity
     /**
      * Rôle client
      */
-    public const ROLE_CUSTOMER = 2;
+    public const ROLE_USER = 2;
 }

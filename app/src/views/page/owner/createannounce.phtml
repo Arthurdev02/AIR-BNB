@@ -1,5 +1,5 @@
 <h1>Formulaire d'Ajout de Logement</h1>
-<form action="#" method="post">
+<form action="/owner/createannounce" method="post">
     <!-- Nom -->
     <label for="name">Nom du logement :</label>
     <input type="text" id="name" name="name" placeholder="Ex : Studio Parisien" required>
@@ -10,6 +10,9 @@
 
     <label for="city"> Ville :</label>
     <input type="text" id="city" name="city" placeholder="Entrez la ville" required>
+
+    <label for="street"> Rue :</label>
+    <input type="text" id="street" name="street" placeholder="Entrez la rue" required>
 
     <!-- Description -->
     <label for="description">Description :</label>
@@ -33,7 +36,7 @@
 
     <!-- Couchages -->
     <label for="beds">Nombre de couchages :</label>
-    <input type="number" id="beds" name="beds" placeholder="Ex : 2" min="0" required>
+    <input type="number" id="beds" name="sleeping" placeholder="Ex : 2" min="0" required>
 
     <label>Équipements :</label>
     <div class="checkbox-group">

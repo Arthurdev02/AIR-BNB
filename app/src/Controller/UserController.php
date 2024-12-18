@@ -88,7 +88,7 @@ class UserController extends Controller
         }
 
         $redirect_url = match ($user->getRoleId()) {
-            User::ROLE_CUSTOMER => 'user/home',
+            User::ROLE_USER => 'user/home',
             User::ROLE_OWNER => 'owner/home',
         };
 
@@ -132,7 +132,7 @@ class UserController extends Controller
 
         // On redirige vers une page en fonction du rôle de l'utilisateur
         $redirect_url = match ($user->getRoleId()) {
-            User::ROLE_CUSTOMER => '/user/home',
+            User::ROLE_USER => '/user/home',
             User::ROLE_OWNER => '/owner/home'
         };
 

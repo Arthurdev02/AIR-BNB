@@ -18,8 +18,8 @@ class AnnouncementEquipmentRepo extends Repository
     {
         $query = sprintf(
             'INSERT INTO `%s` 
-                (`id_announcement`,`id_equipment`) 
-                VALUES (:id_announcement,:id_equipment)',
+                (`announcement_id`,`equipment_id`) 
+                VALUES (:announcement_id,:equipment_id)',
             $this->getTableName()
         );
         $sth = $this->pdo->prepare($query);
@@ -28,8 +28,8 @@ class AnnouncementEquipmentRepo extends Repository
             return null;
         }
         $success = $sth->execute([
-            'id_announcement' => $announcement_equipment->getAnnouncementId(),
-            'id_equipment' => $announcement_equipment->getEquipmentId()
+            'announcement_id' => $announcement_equipment->getAnnouncementId(),
+            'equipment_id' => $announcement_equipment->getEquipmentId()
         ]);
         // Si echec de l'insertion
         if (! $success) {
@@ -55,8 +55,8 @@ class AnnouncementEquipmentRepo extends Repository
         $query = sprintf(
             'UPDATE `%s` 
                 SET
-                    `id_announcement`=:id_announcement,
-                    `id_equipment`=:id_equipment
+                    `announcement_id`=:announcement_id,
+                    `equipment_id`=:equipment_id
                 WHERE id=:id',
             $this->getTableName()
         );
@@ -66,8 +66,8 @@ class AnnouncementEquipmentRepo extends Repository
             return null;
         }
         $success = $sth->execute([
-            'id_announcement' => $announcement_equipment->getAnnouncementId(),
-            'id_equipment' => $announcement_equipment->getEquipmentId(),
+            'announcement_id' => $announcement_equipment->getAnnouncementId(),
+            'equipment_id' => $announcement_equipment->getEquipmentId(),
             'id' => $announcement_equipment->getId()
         ]);
         // Si echec de la mise à jour

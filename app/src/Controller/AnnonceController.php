@@ -12,7 +12,7 @@ use Laminas\Diactoros\ServerRequest;
 use App\Model\Repository\RepoManager;
 use App\Model\Repository\AnnouncementRepository;
 
-class AnnouncementController extends Controller
+class AnnonceController extends Controller
 {
     /**
      * Méthode pour afficher les détails d'une annonce spécifique
@@ -47,20 +47,13 @@ class AnnouncementController extends Controller
     public function createAnnouncement(ServerRequest $request): void
     {
         $announce_data = $request->getParsedBody();
-        $adress =  new Adress(array('city' => $announce_data['city'], 'country' => $announce_data['country'], 'street' => $announce_data['street']));
+        $adress =  new Adress($announce_data);
 
         $adress_created = RepoManager::getRM()->getAdressRepo()->create($adress);
 
-        $announce = new Announcement(array(
-            'id_owner' => Session::get(Session::USER)->getId(),
-            'price' => $announce_data['price'],
-            'id_adress' => $adress_created->getId(),
-            'size' => $announce_data['size'],
-            'sleeping' => $announce_data['sleeping'],
-            'accommodation_id' => $announce_data['accommodation_id'],
-            'description' => $announce_data['description'],
-            'title' => $announce_data['title']
-        ));
+        $announce = new Announcement($announce_data);
+        $announce->setIdAdress($adress_created->getId());
+        $announce->setIdOwner(Session::get(Session::USER)->getId());
 
 
         $announce_created = RepoManager::getRM()->getAnnouncementRepo()->createAnnouncement($announce);
@@ -72,7 +65,7 @@ class AnnouncementController extends Controller
             // TODO: gérer une erreur
             $this->redirect('/create-annonce');
         }
-        $this->redirect('/home/owner');
+        $this->redirect('/owner/home');
     }
 
     public function ViewAnnounce(): void
@@ -80,10 +73,10 @@ class AnnouncementController extends Controller
     {
 
         // Récupérer l'ID du propriétaire connecté
-        $id_owner = Session::get(Session::USER)->getId();
+        $owner_id = Session::get(Session::USER)->getId();
 
         // Récupérer les annonces via la méthode `getAllForOwner`
-        $announcements = RepoManager::getRM()->getAnnouncementRepo()->getAllForOwner($id_owner);
+        $announcements = RepoManager::getRM()->getAnnouncementRepo()->getAllForOwner($owner_id);
 
         foreach ($announcements as $announcement) {
             $adress = RepoManager::getRM()->getAdressRepo()->getById($announcement->getIdAdress());

@@ -73,8 +73,6 @@ class PageController extends Controller
         ];
 
         $view->render($data);
-
-        
     }
 
     public function oldannounce(): void

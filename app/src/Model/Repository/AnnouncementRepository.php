@@ -19,8 +19,8 @@ class AnnouncementRepository extends Repository
     public function createAnnouncement(Announcement $announcement): ?Announcement
     {
         $query = sprintf(
-            "INSERT INTO %s (id_owner, adress_id, size, price, description, sleeping, accommodation_id)
-        VALUES (:id_owner, :adress_id, :size, :price, :description, :sleeping,:accommodation_id)",
+            "INSERT INTO %s (owner_id, adress_id, size, price, description, sleeping)
+        VALUES (:owner_id, :adress_id, :size, :price, :description, :sleeping)",
             $this->getTableName()
         );
         $sth = $this->pdo->prepare($query);
@@ -29,13 +29,12 @@ class AnnouncementRepository extends Repository
             return null;
         }
         $success = $sth->execute([
-            'id_owner' => $announcement->getIdOwner(),
+            'owner_id' => $announcement->getIdOwner(),
             'adress_id' => $announcement->getIdAdress(),
             'size' => $announcement->getSize(),
             'price' => $announcement->getPrice(),
             'description' => $announcement->getDescription(),
             'sleeping' => $announcement->getSleeping(),
-            'accommodation_id' => $announcement->getAccommodationId()
         ]);
         //si echec de l'insertion
 
@@ -59,7 +58,7 @@ class AnnouncementRepository extends Repository
     public function getAllForOwner(int $id): array
     {
         $query = sprintf(
-            'SELECT * FROM `%s` WHERE id_owner=:id_owner',
+            'SELECT * FROM `%s` WHERE owner_id=:owner_id',
             $this->getTableName()
         );
 
@@ -70,7 +69,7 @@ class AnnouncementRepository extends Repository
             return [];
         }
 
-        $success = $sth->execute(['id_owner' => $id]);
+        $success = $sth->execute(['owner_id' => $id]);
 
         // Si echec
         if (! $success) {
@@ -100,7 +99,7 @@ class AnnouncementRepository extends Repository
         $query = sprintf(
             'UPDATE `%s`
                 SET
-                    `id_owner`=:id_owner,
+                    `owner_id`=:owner_id,
                     `adress_id`=:adress_id,
                     `size`=:size,
                     `price`=:price,
@@ -116,7 +115,7 @@ class AnnouncementRepository extends Repository
             return null;
         }
         $success = $sth->execute([
-            'id_owner' => $announcement->getIdOwner(),
+            'owner_id' => $announcement->getIdOwner(),
             'adress_id' => $announcement->getIdAdress(),
             'size' => $announcement->getSize(),
             'price' => $announcement->getPrice(),
