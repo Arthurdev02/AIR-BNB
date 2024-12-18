@@ -9,7 +9,6 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f7fb;
-    /* Couleur de fond douce */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -21,7 +20,6 @@ body {
 /* Navbar */
 .navbar {
     background-color: #ff5a5f;
-    /* Couleur rouge de la navbar */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,14 +38,11 @@ body {
     color: white;
     text-decoration: none;
     background-color: #ff5a5f;
-    /* Bouton blanc */
     padding: 12px 24px;
     border-radius: 5px;
     border: 2px solid white;
-    /* Bordure rouge */
     transition: background-color 0.3s ease;
 }
-
 
 /* Logo centré */
 .navbar .logo {
@@ -57,7 +52,6 @@ body {
     text-transform: uppercase;
     flex-grow: 1;
     text-align: center;
-    /* Centrage du logo */
 }
 
 /* Nav buttons à droite */
@@ -65,7 +59,6 @@ body {
     display: flex;
     gap: 20px;
     margin-left: auto;
-    /* Permet de placer les boutons à droite */
 }
 
 .nav-buttons .btn {
@@ -179,39 +172,6 @@ footer p {
     margin: 0;
 }
 
-/* Sections des actions dans le tableau de bord */
-.actions {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-/* Boutons dans les actions */
-.actions .btn {
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 18px;
-    text-align: center;
-    background-color: #ff5a5f;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 320px;
-    box-sizing: border-box;
-    font-weight: bold;
-}
-
-.actions .btn:hover {
-    background-color: #ff4044;
-    transform: translateY(-3px);
-}
-
-.actions .btn:active {
-    transform: translateY(1px);
-}
-
 /* Responsivité */
 @media (max-width: 768px) {
     .navbar {
@@ -266,22 +226,16 @@ footer p {
     padding: 40px 20px;
     background-color: #f4f7fb;
     height: 100vh;
-    /* Remplir toute la hauteur de la fenêtre */
 }
 
 /* Dashboard du propriétaire */
 .owner-dashboard {
     background-color: #ffffff;
-    /* Fond blanc pour le tableau de bord */
     border-radius: 10px;
-    /* Coins arrondis */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    /* Ombre pour donner du relief */
     padding: 40px;
     max-width: 900px;
-    /* Limiter la largeur */
     width: 100%;
-    /* Utiliser toute la largeur disponible */
     text-align: center;
 }
 
@@ -289,7 +243,6 @@ footer p {
 .h2owner {
     font-size: 36px;
     color: #ff5a5f;
-    /* Couleur rouge */
     margin-bottom: 20px;
 }
 
@@ -312,32 +265,24 @@ footer p {
 /* Boutons des actions */
 .actionsowner .btn {
     background-color: #ff5a5f;
-    /* Fond rouge */
     color: white;
     padding: 15px 30px;
     font-size: 18px;
     text-align: center;
     text-decoration: none;
     border-radius: 8px;
-    /* Coins arrondis */
     width: 100%;
     max-width: 320px;
-    /* Limiter la largeur du bouton */
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Effet hover des boutons */
 .actionsowner .btn:hover {
     background-color: #ff4044;
-    /* Rouge plus foncé au survol */
     transform: translateY(-3px);
-    /* Légère élévation */
 }
 
-/* Effet active sur les boutons */
 .actionsowner .btn:active {
     transform: translateY(1px);
-    /* Lors du clic, le bouton descend légèrement */
 }
 
 /* Responsivité */
@@ -345,7 +290,6 @@ footer p {
     .owner-dashboard {
         padding: 30px;
         width: 90%;
-        /* Réduire la largeur sur petits écrans */
     }
 
     .h2owner {
@@ -358,121 +302,6 @@ footer p {
 
     .actionsowner .btn {
         font-size: 16px;
-    }
-}
-
-/* Reset des styles par défaut */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Corps du formulaire */
-body.connect {
-    background-color: #f4f7fb;
-    /* Fond léger pour l'écran */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Hauteur totale de l'écran */
-    font-family: 'Arial', sans-serif;
-}
-
-/* Conteneur principal du formulaire */
-form {
-    background-color: #ffffff;
-    /* Fond blanc pour le formulaire */
-    border-radius: 8px;
-    /* Coins arrondis */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /* Ombre douce autour du formulaire */
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
-    /* Limite la largeur du formulaire */
-    text-align: center;
-}
-
-/* Titre du formulaire */
-.h1connect {
-    font-size: 32px;
-    color: #ff5a5f;
-    /* Couleur rouge */
-    margin-bottom: 20px;
-}
-
-/* Style des labels */
-label {
-    font-size: 14px;
-    color: #555;
-    display: block;
-    margin-bottom: 8px;
-    text-align: left;
-}
-
-/* Style des champs de saisie */
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    /* Fond clair pour les champs */
-    transition: border-color 0.3s ease;
-}
-
-/* Focus sur les champs de saisie */
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #ff5a5f;
-    /* Couleur rouge au focus */
-    outline: none;
-    /* Supprime le contour par défaut */
-}
-
-/* Bouton de soumission */
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #ff5a5f;
-    /* Fond rouge */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-/* Effet hover et active du bouton */
-button:hover {
-    background-color: #ff4044;
-    /* Rouge plus foncé au survol */
-    transform: translateY(-3px);
-    /* Légère élévation */
-}
-
-button:active {
-    transform: translateY(1px);
-    /* Enfoncement du bouton lors du clic */
-}
-
-/* Responsivité */
-@media (max-width: 768px) {
-    form {
-        padding: 30px;
-        width: 90%;
-        /* Réduit la largeur du formulaire sur petits écrans */
-    }
-
-    .h1connect {
-        font-size: 28px;
-        /* Taille réduite du titre pour les petits écrans */
     }
 }
 
@@ -515,7 +344,7 @@ select {
     background-color: #fafafa;
 }
 
-/* Style du textarea (ajout d'un peu plus de taille) */
+/* Style du textarea */
 textarea {
     resize: vertical;
 }
@@ -533,7 +362,6 @@ textarea {
     transition: background-color 0.3s ease;
 }
 
-/* Effet de survol du bouton */
 .logementbtn:hover {
     background-color: #0056b3;
 }
@@ -573,84 +401,35 @@ textarea {
     color: #555;
     margin-bottom: 8px;
     display: block;
+    text-align: left;
 }
 
-/* Champs de saisie */
-.add-housing-form input[type="text"],
-.add-housing-form input[type="number"],
-.add-housing-form textarea,
-.add-housing-form select {
+/* Style des champs de saisie */
+.add-housing-form input,
+.add-housing-form select,
+.add-housing-form textarea {
     width: 100%;
     padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #fafafa;
-    transition: border-color 0.3s ease;
-}
-
-.add-housing-form input:focus,
-.add-housing-form textarea:focus,
-.add-housing-form select:focus {
-    border-color: #ff5a5f;
-    outline: none;
-}
-
-/* Groupement des checkboxes */
-.checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
     margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
 }
 
-.checkbox-group label {
-    font-size: 14px;
-    color: #555;
-    display: flex;
-    align-items: center;
-}
-
-.checkbox-group input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-/* Bouton de soumission */
+/* Style du bouton de soumission */
 .add-housing-form button {
     width: 100%;
-    padding: 12px;
+    padding: 12px 24px;
     background-color: #ff5a5f;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
 .add-housing-form button:hover {
     background-color: #ff4044;
-    transform: translateY(-3px);
-}
-
-.add-housing-form button:active {
-    transform: translateY(1px);
-}
-
-/* Responsivité */
-@media (max-width: 768px) {
-    .add-housing-form {
-        padding: 20px;
-        width: 90%;
-    }
-
-    .add-housing-form h1 {
-        font-size: 24px;
-    }
-
-    .add-housing-form button {
-        font-size: 14px;
-    }
 }

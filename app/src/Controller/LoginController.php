@@ -69,7 +69,7 @@ class LoginController extends Controller
         }
 
         if ($user->getRole() === 2) {
-            $this->redirect('/owner/home');
+            $this->redirect('/home/owner');
         }
     }
 }

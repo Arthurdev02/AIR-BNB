@@ -68,7 +68,7 @@ final class App
         $this->router->pattern('id', '\d+');
 
         // -- Pages communes --
-        $this->router->get('/', [PageController::class, 'index']);
+        $this->router->get('/home', [PageController::class, 'index']);
         $this->router->get('/create-account', [PageController::class, 'register']);
         $this->router->get('/connect', [PageController::class, 'connect']);
         $this->router->post('/connect', [UserController::class, 'login']);

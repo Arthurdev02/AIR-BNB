@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Repository\RepoManager;
 use PDO;
 
 use Symplefony\Controller;
@@ -9,6 +10,7 @@ use Symplefony\Database;
 use Symplefony\View;
 
 use App\Model\UserModel;
+use App\Session;
 
 class PageController extends Controller
 {
@@ -90,7 +92,8 @@ class PageController extends Controller
         $view = new View('page:owner:manageannounce');
 
         $data = [
-            'title' => 'CAZKEN.com - owner '
+            'title' => 'CAZKEN.com - owner ',
+            'announcements' => RepoManager::getRM()->getAnnouncementRepo()->getAllForOwner(Session::get(Session::USER)->getId())
         ];
 
         $view->render($data);
