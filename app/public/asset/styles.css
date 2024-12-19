@@ -1,158 +1,202 @@
-/* Reset des styles par défaut */
+/* Reset des styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Corps du site */
+/* Corps de la page */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f7fb;
     color: #333;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
-/* Navbar */
+/* Barre de navigation */
 .navbar {
     background-color: #ff5a5f;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
+    padding: 15px 30px;
     position: fixed;
-    width: 100%;
     top: 0;
-    left: 0;
+    width: 100%;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Home icon à gauche avec bouton blanc */
-.home-icon .home-button {
-    font-size: 28px;
     color: white;
-    text-decoration: none;
-    background-color: #ff5a5f;
-    padding: 12px 24px;
-    border-radius: 5px;
-    border: 2px solid white;
-    transition: background-color 0.3s ease;
 }
 
-/* Logo centré */
 .navbar .logo {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
-    color: white;
     text-transform: uppercase;
-    flex-grow: 1;
-    text-align: center;
 }
 
-/* Nav buttons à droite */
 .nav-buttons {
     display: flex;
-    gap: 20px;
-    margin-left: auto;
+    gap: 10px;
 }
 
-.nav-buttons .btn {
+.nav-buttons .btn,
+.home-button {
     background-color: #ffffff;
     color: #ff5a5f;
-    padding: 12px 24px;
+    padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 14px;
     border: 2px solid #ff5a5f;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-.nav-buttons .btn:hover {
+.nav-buttons .btn:hover,
+.home-button:hover {
     background-color: #ff5a5f;
     color: white;
 }
 
-/* Formulaire de création de compte */
-.form-container,
-.form-container-se-connecter {
-    max-width: 500px;
-    width: 100%;
-    margin: 100px auto 50px;
-    padding: 40px;
+/* En-têtes principaux */
+h1,
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Formulaires */
+form {
     background-color: #ffffff;
+    padding: 20px;
+    margin: 80px auto 20px;
+    max-width: 500px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.form-container h1,
-.form-container-se-connecter h1 {
-    text-align: center;
-    font-size: 28px;
+form h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
     color: #ff5a5f;
-    margin-bottom: 30px;
 }
 
-label {
+form label {
+    display: block;
+    margin: 10px 0 5px;
     font-size: 14px;
     color: #555;
-    display: block;
-    margin-bottom: 8px;
-    text-align: left;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-select {
+form input,
+form select,
+form textarea {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
+    padding: 10px;
+    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #f9f9f9;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.3s;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="tel"]:focus,
-select:focus {
+form input:focus,
+form select:focus,
+form textarea:focus {
     border-color: #ff5a5f;
     outline: none;
 }
 
-button.btn-primary {
+form button {
     width: 100%;
-    padding: 12px 24px;
+    padding: 10px;
     background-color: #ff5a5f;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-button.btn-primary:hover {
-    background-color: #ff4044;
+form button:hover {
+    background-color: #ff4040;
 }
 
-/* Main content centré */
-.main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+/* Cartes */
+.card,
+.owner-dashboard {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin: 20px auto;
+    text-align: left;
+    max-width: 400px;
+}
+
+.card h3,
+.owner-dashboard h2 {
+    font-size: 18px;
+    color: #ff5a5f;
+    margin-bottom: 10px;
+}
+
+.card ul,
+.owner-dashboard p {
+    margin-top: 10px;
+    list-style-type: none;
+    font-size: 14px;
+    color: #555;
+}
+
+.card ul li {
+    margin-bottom: 5px;
+}
+
+.card ul li u {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Section des hébergements */
+.listings {
+    background-color: #f4f4f9;
+    padding: 20px;
+    text-align: center;
+}
+
+.listings .cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.listings .card {
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+}
+
+.listings .card img {
+    width: 100%;
+    height: auto;
+}
+
+.listings .card h3 {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.listings .card p {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
 /* Footer */
@@ -160,65 +204,36 @@ footer {
     background-color: #ff5a5f;
     color: white;
     text-align: center;
-    padding: 15px;
+    padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer p {
     font-size: 14px;
-    margin: 0;
 }
 
 /* Responsivité */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
-        padding: 15px;
+        align-items: center;
     }
 
     .nav-buttons {
-        position: static;
-        margin-top: 10px;
-        gap: 10px;
+        flex-direction: column;
+        gap: 5px;
     }
 
-    .navbar .logo {
-        position: static;
-        margin-bottom: 10px;
-    }
-
-    .form-container,
-    .form-container-se-connecter {
-        padding: 30px;
+    form {
         width: 90%;
     }
 
-    .form-container h1,
-    .form-container-se-connecter h1 {
-        font-size: 24px;
-    }
-
-    .owner-dashboard {
-        padding: 25px;
-    }
-
-    .owner-dashboard h2 {
-        font-size: 24px;
-    }
-
-    .owner-dashboard p {
-        font-size: 16px;
-    }
-
-    .actions .btn {
-        font-size: 16px;
+    .listings .cards {
+        flex-direction: column;
     }
 }
 
-/* Conteneur principal */
+/* Conteneur principal du tableau de bord propriétaire */
 .owner-main-content {
     display: flex;
     justify-content: center;
@@ -226,29 +241,30 @@ footer p {
     padding: 40px 20px;
     background-color: #f4f7fb;
     height: 100vh;
+    /* S'adapte à la hauteur de l'écran */
 }
 
-/* Dashboard du propriétaire */
+/* Carte du tableau de bord propriétaire */
 .owner-dashboard {
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 40px;
-    max-width: 900px;
+    max-width: 600px;
     width: 100%;
     text-align: center;
 }
 
-/* Titre du dashboard */
+/* Titre principal */
 .h2owner {
-    font-size: 36px;
+    font-size: 28px;
     color: #ff5a5f;
     margin-bottom: 20px;
 }
 
 /* Paragraphe d'introduction */
 .phowner {
-    font-size: 18px;
+    font-size: 16px;
     color: #555;
     margin-bottom: 30px;
     line-height: 1.6;
@@ -258,7 +274,7 @@ footer p {
 .actionsowner {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
 }
 
@@ -266,16 +282,17 @@ footer p {
 .actionsowner .btn {
     background-color: #ff5a5f;
     color: white;
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 12px 24px;
+    font-size: 16px;
     text-align: center;
     text-decoration: none;
     border-radius: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 300px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Effets hover et active */
 .actionsowner .btn:hover {
     background-color: #ff4044;
     transform: translateY(-3px);
@@ -283,6 +300,18 @@ footer p {
 
 .actionsowner .btn:active {
     transform: translateY(1px);
+}
+
+/* Bouton principal */
+.btn.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn.btn-primary:hover {
+    background-color: #0056b3;
 }
 
 /* Responsivité */
@@ -293,228 +322,39 @@ footer p {
     }
 
     .h2owner {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .phowner {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .actionsowner .btn {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
-/* Styling for error 404 */
-.error404 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #d9534f;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* Styling for error 500 */
-.erreur500 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #f0ad4e;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* Additional Text */
-main p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-top: 10px;
-}
-
-/* Style des champs de saisie et des sélecteurs */
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #fafafa;
-}
-
-/* Style du textarea */
-textarea {
-    resize: vertical;
-}
-
-/* Style du bouton de soumission */
-.logementbtn {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.logementbtn:hover {
-    background-color: #0056b3;
-}
-
-/* Titre du formulaire */
-.logementh1 {
-    text-align: center;
-    font-size: 26px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Style du conteneur principal */
-.add-housing-form {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 100%;
-    max-width: 600px;
-    margin: 50px auto;
-    text-align: left;
-}
-
-/* Titre du formulaire */
-.add-housing-form h1 {
-    font-size: 32px;
-    color: #ff5a5f;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Style des labels */
-.add-housing-form label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 8px;
-    display: block;
-    text-align: left;
-}
-
-/* Style des champs de saisie */
-.add-housing-form input,
-.add-housing-form select,
-.add-housing-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    font-size: 16px;
-}
-
-/* Style du bouton de soumission */
-.add-housing-form button {
-    width: 100%;
-    padding: 12px 24px;
-    background-color: #ff5a5f;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-housing-form button:hover {
-    background-color: #ff4044;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    color: #333;
-}
-
-.annoucement-container {
-    width: 80%;
-    margin: 20px auto;
-    padding: 10px;
-}
-
-.annoucement-container ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.annoucement-container>ul {
-    padding: 0;
+/* Conteneur de l'erreur */
+.errorlocation {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.annoucement-container .titre {
-    margin: 0;
-    font-size: 1.5em;
-    color: #0056b3;
-}
-
-div[class^='$'] {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+    color: #ff5a5f;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
     padding: 20px;
-    width: calc(33.333% - 20px);
-    box-sizing: border-box;
 }
 
-div[class^='$'] h4 {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: bold;
-}
-
-div[class^='$'] li {
-    margin: 5px 0;
-    font-size: 0.9em;
-}
-
-div[class^='$'] li u {
-    color: #555;
-    font-weight: bold;
-}
-
-div[class^='$']:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.annoucement-container div {
-    text-align: left;
-    word-wrap: break-word;
-}
-
-div[class^='$'] u {
+.card-link {
     text-decoration: none;
-    color: #0056b3;
+    color: inherit;
 }
 
-div[class^='$'] p {
-    line-height: 1.6;
-    font-size: 0.9em;
-    color: #666;
-}
-
-div>ul>h3>u:hover {
-    color: darkorange;
+.card-link:hover .card {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

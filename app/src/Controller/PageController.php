@@ -71,7 +71,7 @@ class PageController extends Controller
         $view = new View('page:owner:createannounce');
 
         $data = [
-            'title' => 'CAZKEN.com - owner '
+            'title' => ' AIR CNC.com - owner '
         ];
 
         $view->render($data);
@@ -82,7 +82,7 @@ class PageController extends Controller
         $view = new View('page:owner:oldannounce');
 
         $data = [
-            'title' => 'CAZKEN.com - owner '
+            'title' => ' AIR CNC.com - owner '
         ];
 
         $view->render($data);
@@ -92,7 +92,7 @@ class PageController extends Controller
         $view = new View('page:owner:manageannounce');
 
         $data = [
-            'title' => 'CAZKEN.com - owner ',
+            'title' => ' AIR CNC.com - owner ',
             'announcements' => RepoManager::getRM()->getAnnouncementRepo()->getAllForOwner(Session::get(Session::USER)->getId())
         ];
 

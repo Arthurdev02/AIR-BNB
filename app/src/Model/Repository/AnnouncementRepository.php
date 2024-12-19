@@ -131,4 +131,26 @@ class AnnouncementRepository extends Repository
         }
         return $announcement;
     }
+    public function findById(int $id): ?Announcement
+    {
+        $query = 'SELECT * FROM announcements WHERE id = :id';
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $announcement = new Announcement();
+            $announcement->setId($result['id']);
+            $announcement->setTitle($result['title']);
+            $announcement->setDescription($result['description']);
+            $announcement->setSize($result['size']);
+            $announcement->setSleeping($result['sleeping']);
+            $announcement->setPrice($result['price']);
+            $announcement->setIdAdress($result['adress_id']);
+            $announcement->setAccommodationId($result['accommodation_id']);
+            return $announcement;
+        }
+
+        return null; // Retourne null si l'annonce n'existe pas
+    }
 }

@@ -1,45 +1,23 @@
-<div class="container">
-    <!-- Logement Card 1 -->
-    <div class="logement-card">
-        <img src="https://via.placeholder.com/280x180" alt="Logement 1">
-        <div class="logement-card-content">
-            <h3>Logement à Paris</h3>
-            <p>Appartement moderne avec 2 chambres, idéal pour une famille ou des professionnels.</p>
-            <div class="price">€1200/mois</div>
-            <a href="#" class="btn">Voir les détails</a>
-        </div>
+<body>
+    <div class="annoucement-container">
+        <?php if (!empty($announcements)) : ?>
+            <?php foreach ($announcements as $annoucement) : ?>
+                <div class="card">
+                    <ul>
+                        <h3 class="card-title"><u><?php echo $annoucement->getTitle(); ?></u></h3>
+                        <h4>Nom du logement : <?php echo $annoucement->getTitle(); ?></h4>
+                        <li><u>Description :</u> <?php echo $annoucement->getDescription(); ?></li>
+                        <li><u>Surface :</u> <?php echo $annoucement->getSize(); ?> m²</li>
+                        <li><u>Nombre de chambre(s) :</u> <?php echo $annoucement->getSleeping(); ?> Chambre</li>
+                        <li><u>Adresse :</u> <?php echo $annoucement->getIdAdress(); ?></li>
+                        <li><u>Prix par nuit :</u> <?php echo $annoucement->getPrice(); ?> €</li>
+                        <li><u>Type de logement :</u> <?php echo $annoucement->getAccommodationId(); ?></li>
+                        <li><u>Equipements disponibles :</u> <?php echo $annoucement->getAccommodationId(); ?></li>
+                    </ul>
+                </div>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <div>Aucune location enregistrée</div>
+        <?php endif; ?>
     </div>
-
-    <!-- Logement Card 2 -->
-    <div class="logement-card">
-        <img src="https://via.placeholder.com/280x180" alt="Logement 2">
-        <div class="logement-card-content">
-            <h3>Maison à Lyon</h3>
-            <p>Spacieuse maison avec un grand jardin, parfaite pour une famille avec enfants.</p>
-            <div class="price">€1500/mois</div>
-            <a href="#" class="btn">Voir les détails</a>
-        </div>
-    </div>
-
-    <!-- Logement Card 3 -->
-    <div class="logement-card">
-        <img src="https://via.placeholder.com/280x180" alt="Logement 3">
-        <div class="logement-card-content">
-            <h3>Studio à Bordeaux</h3>
-            <p>Studio tout équipé, proche des commerces et des transports publics.</p>
-            <div class="price">€700/mois</div>
-            <a href="#" class="btn">Voir les détails</a>
-        </div>
-    </div>
-
-    <!-- Logement Card 4 -->
-    <div class="logement-card">
-        <img src="https://via.placeholder.com/280x180" alt="Logement 4">
-        <div class="logement-card-content">
-            <h3>Chambre à Toulouse</h3>
-            <p>Chambre privée dans un appartement partagé, à proximité du centre-ville.</p>
-            <div class="price">€350/mois</div>
-            <a href="#" class="btn">Voir les détails</a>
-        </div>
-    </div>
-</div>
+</body>

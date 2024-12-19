@@ -13,7 +13,7 @@ class ownerController extends Controller
         $view = new View('page:owner:home');
 
         $data = [
-            'title' => 'CAZKEN.com - owner '
+            'title' => 'KEN.com - owner '
         ];
 
         $view->render($data);
@@ -24,11 +24,9 @@ class ownerController extends Controller
         $view = new View('page:owner:home');
 
         $data = [
-            'title' => 'CAZKEN.com - owner '
+            'title' => ' AIR CNC.com - owner '
         ];
 
         $view->render($data);
     }
-
-
 }

@@ -1,26 +1,23 @@
 <body>
     <div class="annoucement-container">
         <?php if (!empty($announcements)) : ?>
-
-            <?php //var_dump($announcements);
-            foreach ($announcements as $annoucement): { ?>
-                    <div class="$annoucement">
-                        <ul>
-                            <h3 class="titre"><u><?php echo $annoucement->getTitle() ?></u></h3>
-                            <h4>Nom du logement : <?php echo $annoucement->getTitle() ?> </h4>
-                            <li><u>Description :</u> <?php echo $annoucement->getDescription() ?></li>
-                            <li><u>Surface :</u> <?php echo $annoucement->getSize() ?> m²</li>
-                            <li><u>Nombre de chambre(s) :</u> <?php echo $annoucement->getSleeping() ?> Chambre</li>
-                            <li><u>Adresse :</u> <?php echo $annoucement->getIdAdress() ?></li>
-                            <li><u>Prix par nuit :</u> <?php echo $annoucement->getPrice() ?> €</li>
-                            <li><u>Type de logement :</u> <?php echo $annoucement->getAccommodationId() ?></li>
-                            <li><u>Equipements disponibles :</u> <?php echo $annoucement->getAccommodationId() ?></li>
-                        </ul>
-                    <?php } ?>
-                    </div>
-                <?php endforeach ?>
+            <?php foreach ($announcements as $annoucement) : ?>
+                <div class="card">
+                    <ul>
+                        <h3 class="card-title"><u><?php echo $annoucement->getTitle(); ?></u></h3>
+                        <h4>Nom du logement : <?php echo $annoucement->getTitle(); ?></h4>
+                        <li><u>Description :</u> <?php echo $annoucement->getDescription(); ?></li>
+                        <li><u>Surface :</u> <?php echo $annoucement->getSize(); ?> m²</li>
+                        <li><u>Nombre de chambre(s) :</u> <?php echo $annoucement->getSleeping(); ?> Chambre</li>
+                        <li><u>Adresse :</u> <?php echo $annoucement->getIdAdress(); ?></li>
+                        <li><u>Prix par nuit :</u> <?php echo $annoucement->getPrice(); ?> €</li>
+                        <li><u>Type de logement :</u> <?php echo $annoucement->getAccommodationId(); ?></li>
+                        <li><u>Equipements disponibles :</u> <?php echo $annoucement->getAccommodationId(); ?></li>
+                    </ul>
+                </div>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <div>Aucune location enregistrée</div>
+        <?php endif; ?>
     </div>
-<?php else: ?>
-    <div>Aucune location enregistrée</div>
-<?php endif ?>
 </body>
