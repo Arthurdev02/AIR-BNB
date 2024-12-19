@@ -433,3 +433,88 @@ textarea {
 .add-housing-form button:hover {
     background-color: #ff4044;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.annoucement-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.annoucement-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.annoucement-container>ul {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.annoucement-container .titre {
+    margin: 0;
+    font-size: 1.5em;
+    color: #0056b3;
+}
+
+div[class^='$'] {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+
+div[class^='$'] h4 {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+}
+
+div[class^='$'] li {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+div[class^='$'] li u {
+    color: #555;
+    font-weight: bold;
+}
+
+div[class^='$']:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.annoucement-container div {
+    text-align: left;
+    word-wrap: break-word;
+}
+
+div[class^='$'] u {
+    text-decoration: none;
+    color: #0056b3;
+}
+
+div[class^='$'] p {
+    line-height: 1.6;
+    font-size: 0.9em;
+    color: #666;
+}
+
+div>ul>h3>u:hover {
+    color: darkorange;
+}

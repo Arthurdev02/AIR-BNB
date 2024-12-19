@@ -106,7 +106,7 @@ class Announcement extends Entity
     // Getter et Setter pour accommodation_id
     public function getAccommodationId(): int
     {
-        return $this->accommodation_id;
+        return $this->accommodation_id ?? 0;
     }
 
     public function setAccommodationId(int $accommodation_id): self
